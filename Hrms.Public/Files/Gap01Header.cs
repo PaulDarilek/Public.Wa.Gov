@@ -6,7 +6,7 @@ namespace Hrms.Public.Files
 {
     /// <summary>Definition of GAP01 record from https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP1-Map.pdf</summary>
     [FixedLengthRecord(FixedMode.ExactLength)]
-    public class Gap01Header
+    public class Gap01Header : FixedLengthFile
     {
         //Field Name Desc Length Start Position Notes
 

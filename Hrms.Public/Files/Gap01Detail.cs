@@ -1,13 +1,12 @@
 ﻿using FileHelpers;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace Hrms.Public.Files
 {
 
     /// <summary>Definition of GAP01 (Detail) record from https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP1-Map.pdf</summary>
     [FixedLengthRecord(FixedMode.ExactLength)]
-    public class Gap01Detail
+    public class Gap01Detail : FixedLengthFile
     {
         //Field Name Desc Length Start Position Notes
 
