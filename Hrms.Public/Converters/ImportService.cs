@@ -1,5 +1,5 @@
 ﻿using FileHelpers;
-using Hrms.Public.Files;
+using Hrms.Public.Abstract;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Hrms.Public.Converters
     internal class ImportService
     {
         /// <summary>Convert a flat file into a DataTable</summary>
-        public DataTable ReadFileAsDataTable<T>(FileInfo sourceFile) where T : FixedLengthFile
+        public DataTable ReadFileAsDataTable<T>(FileInfo sourceFile) where T : class, IFixedLengthFile
         {
             var engine = new FileHelperEngine<T>();
             var result = engine.ReadFileAsDT(sourceFile.FullName);
@@ -21,7 +21,7 @@ namespace Hrms.Public.Converters
         }
 
         /// <summary>Convert a flat file into a DataTable</summary>
-        public List<T> ReadFileAsList<T>(FileInfo sourceFile) where T : FixedLengthFile
+        public List<T> ReadFileAsList<T>(FileInfo sourceFile) where T : class, IFixedLengthFile
         {
             var engine = new FileHelperEngine<T>();
             var result = engine.ReadFileAsList(sourceFile.FullName);

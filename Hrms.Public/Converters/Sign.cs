@@ -1,5 +1,7 @@
 ﻿namespace Hrms.Public.Converters
 {
+
+    /// <summary>Used to Implment COBOL like numeric fields with Leading/Trailing separate positive/negative signs</summary>
     public enum Sign
     {
         /// <summary>No Sign Character</summary>

@@ -72,8 +72,7 @@ namespace Hrms.Public.Converters
         /// </summary>
         public CsvTextFieldParser(TextReader reader)
         {
-            if (reader == null) throw new ArgumentNullException(nameof(reader));
-            this.reader = reader;
+            this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
         }
 
         /// <summary>
@@ -100,8 +99,7 @@ namespace Hrms.Public.Converters
             int startIndex = 0;
             while (startIndex < line.Length)
             {
-                int nextStartIndex;
-                fields.Add(ParseField(ref line, startIndex, out nextStartIndex));
+                fields.Add(ParseField(ref line, startIndex, out int nextStartIndex));
                 startIndex = nextStartIndex;
             }
 
@@ -187,16 +185,13 @@ namespace Hrms.Public.Converters
                 {
                     // Ignoring empty lines is the wrong thing to do here (we'd be stripping out EOL characters in the middle of a quoted field).
                     // But that's how the VB version works, so we'll do the same in compatibility mode.
-                    string nextLine = ReadNextLineWithTrailingEol(ignoreEmptyLines: CompatibilityMode);
-                    if (nextLine == null)
-                    {
-                        // If we're out of lines and still haven't found a closing quote, then this whole line is malformed.
+                    string nextLine = 
+                        ReadNextLineWithTrailingEol(ignoreEmptyLines: CompatibilityMode) ?? 
                         throw CreateMalformedLineException(
                             message: $"Line {currentLineNumber} cannot be parsed because a quoted field is not closed.",
                             errorLine: line.TrimEnd('\r', '\n'),
                             errorLineNumber: currentLineNumber
                         );
-                    }
                     line += nextLine;
                 }
             } while (!isQuoteClosed && i < line.Length);
@@ -290,8 +285,7 @@ namespace Hrms.Public.Converters
                 return false;
             }
 
-            int ignoredEmptyLineCount;
-            var nextLine = ReadNextLineWithTrailingEol(ignoreEmptyLines: true, ignoredEmptyLineCount: out ignoredEmptyLineCount);
+            var nextLine = ReadNextLineWithTrailingEol(ignoreEmptyLines: true, ignoredEmptyLineCount: out int ignoredEmptyLineCount);
             if (nextLine == null)
             {
                 if (ignoredEmptyLineCount > 0)
@@ -308,8 +302,7 @@ namespace Hrms.Public.Converters
 
         private string ReadNextLineWithTrailingEol(bool ignoreEmptyLines)
         {
-            int ignoredEmptyLineCount;
-            var line = ReadNextLineWithTrailingEol(ignoreEmptyLines, out ignoredEmptyLineCount);
+            var line = ReadNextLineWithTrailingEol(ignoreEmptyLines, out var _);
             return line;
         }
 

@@ -1,4 +1,5 @@
 ﻿using FileHelpers;
+using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
 using System;
 
@@ -8,9 +9,8 @@ namespace Hrms.Public.Files
     /// <summary>GAP01 Map (Time and Leave Activity)</summary>
     /// <remarks><see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP1-Map.pdf"/> </remarks>
     [FixedLengthRecord(FixedMode.ExactLength)]
-    public class Gap01Detail : FixedLengthFile
+    public class Gap01Detail : IFixedLengthFile
     {
-
         /// <summary>(Detail) CHAR(2) 2 1 Constant "01"</summary>
         [FieldFixedLength(2)]
         [FieldSpec(2, 1, "Constant '01'")]
@@ -34,22 +34,22 @@ namespace Hrms.Public.Files
         /// <summary>DATS(8) 8 24 CATS YYYYMMDD PA2010 BEGDA Start date</summary>
         [FieldFixedLength(8)]
         [FieldSpec(8, 24, "YYYYMMDD Start date")]
-        public DateTime StartDate; // 
+        public DateTime StartDate;  
 
         /// <summary>DATS(8) 8 32 CATS YYYYMMDD PA2010 ENDDA End Date</summary>
         [FieldFixedLength(8)]
         [FieldSpec(8, 32, "YYYYMMDD End Date")]
-        public DateTime EndDate; //
+        public DateTime EndDate; 
 
         /// <summary>CHAR(4) 4 40 CATS Required to get paid for attendance. Wage Type PA2010 LGART Wage type Load into Infotype 2010</summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 40, "Required to get paid for attendance")]
-        public string WageType; //
+        public string WageType; 
 
         /// <summary>CHAR(4) 4 44 CATS Required to get paid for leave taken (Absence Types)</summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 44, "Required to get paid for leave taken (Absence Types)")]
-        public string AbsenceType; // 
+        public string AbsenceType; 
 
         /// <summary>DEC(3,2) 5 48 CATS 3 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(5)]
@@ -149,8 +149,8 @@ namespace Hrms.Public.Files
         /// <summary>DEC(4) 4 137 CATS 4 whole numbers, No decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED</summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 137, "whole numbers, No decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED")]
-        [FieldConverter(typeof(UnsignedIntPadded), 4)]
-        public uint Mileage;
+        [FieldConverter(typeof(IntConverter), 4, false)]
+        public int Mileage;
 
         /// <summary>DEC(5,2) 7 140 CATS 5 whole numbers plus 2 decimal positions(implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED</summary>
         [FieldFixedLength(7)]
@@ -160,16 +160,17 @@ namespace Hrms.Public.Files
 
         public const int Total_Length = 147;
 
-        public static bool IsValidRecord(string line)
+        public int GetRecordLength() => Total_Length;
+
+        public bool IsPossibleRecord(string record)
         {
-            if (string.IsNullOrEmpty(line) || !(line.Length == Total_Length ))
+            if (string.IsNullOrEmpty(record) || !(record.Length == Total_Length))
                 return false;
 
-            var recordType = line.Substring(0, 2);
+            var recordType = record.Substring(0, 2);
 
             return recordType == "01";
         }
-
     }
 
 }

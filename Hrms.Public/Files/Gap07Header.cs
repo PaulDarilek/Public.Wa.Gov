@@ -1,4 +1,5 @@
 ﻿using FileHelpers;
+using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Hrms.Public.Files
     /// <summary>Gap 7 File Header (Payroll Accounting Details)</summary>
     /// <see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP7-Map.pdf"/>
     [FixedLengthRecord()]
-    public class Gap07Header : FixedLengthFile
+    public class Gap07Header : IFixedLengthFile
     {
 
         [FieldFixedLength(2)]
@@ -79,17 +80,18 @@ namespace Hrms.Public.Files
             }
         }
 
-        public static bool IsValidRecord(string line)
+        public int GetRecordLength() => Total_Length;
+
+        public bool IsPossibleRecord(string record)
         {
-            if(string.IsNullOrEmpty(line) || !(line.Length == Total_Length || line.Length == Trimmed_Length))
+            if (string.IsNullOrEmpty(record) || !(record.Length == Total_Length || record.Length == Trimmed_Length))
                 return false;
 
-            var recordType = line.Substring(0, 2);
-            var interfaceIdentifier = line.Substring(2, 8);
+            var recordType = record.Substring(0, 2);
+            var interfaceIdentifier = record.Substring(2, 8);
 
             return recordType == "00" && interfaceIdentifier == Interface_Identifier_Constant;
         }
-
     }
 
 }

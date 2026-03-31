@@ -1,4 +1,5 @@
 ﻿using FileHelpers;
+using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Hrms.Public.Files
     /// <summary>GAP01 Map (Time and Leave Activity)</summary>
     /// <remarks><see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP1-Map.pdf"/> </remarks>
     [FixedLengthRecord(FixedMode.ExactLength)]
-    public class Gap01Header : FixedLengthFile
+    public class Gap01Header : IFixedLengthFile
     {
         //Field Name Desc Length Start Position Notes
 
@@ -52,9 +53,9 @@ namespace Hrms.Public.Files
 
         /// <summary>NUMC(6) 6 42 Total Number of Detail records in file, leading zeros</summary>
         [FieldFixedLength(6)]
-        [FieldConverter(typeof(UnsignedIntPadded), 6)]
+        [FieldConverter(typeof(IntConverter), 6, false)]
         [FieldSpec(6, 42, "NUMC(6) Total Number of Detail records in file, leading zeros")]
-        public uint TotalDetailRecordCount;
+        public int TotalDetailRecordCount;
 
         /// <summary>DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(8)]
@@ -70,9 +71,9 @@ namespace Hrms.Public.Files
 
         /// <summary>DEC(6) 6 65 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(6)]
-        [FieldConverter(typeof(UnsignedIntPadded), 6)]
+        [FieldConverter(typeof(IntConverter), 6, false)]
         [FieldSpec(6, 65, "DEC(6) 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
-        public uint TotalDetailMileageAmount;
+        public int TotalDetailMileageAmount;
 
         public const int Total_Length = 71;
         public const string Interface_Identifier_Constant = "IIFTM001";
@@ -107,19 +108,18 @@ namespace Hrms.Public.Files
             }
         }
 
-        public static bool IsValidRecord(string line)
+        public int GetRecordLength() => Total_Length;
+
+        public bool IsPossibleRecord(string record)
         {
-            if (string.IsNullOrEmpty(line) || !(line.Length == Total_Length))
+            if (string.IsNullOrEmpty(record) || !(record.Length == Total_Length))
                 return false;
 
-            var recordType = line.Substring(0, 2);
-            var interfaceIdentifier = line.Substring(2, 8);
+            var recordType = record.Substring(0, 2);
+            var interfaceIdentifier = record.Substring(2, 8);
 
             return recordType == "00" && interfaceIdentifier == Interface_Identifier_Constant;
         }
-
-
-
     }
 
 }

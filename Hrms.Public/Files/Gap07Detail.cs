@@ -1,4 +1,5 @@
 ﻿using FileHelpers;
+using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
 using System;
 using System.Diagnostics.Metrics;
@@ -11,17 +12,14 @@ namespace Hrms.Public.Files
     /// <summary>Gap 7 Map (Payroll Accounting Details)</summary>
     /// <remarks><see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP7-Map.pdf"/></remarks>
     [FixedLengthRecord()]
-    public class Gap07Detail : FixedLengthFile
+    public class Gap07Detail : IFixedLengthFile
     {
-        public const int Total_Length = 436;
-
-
         [FieldFixedLength(2)]
         [FieldSpec(2, 1, "Constant '01'")]
         public string RecordType; //00 = Header, 01=Detail
 
         [FieldFixedLength(4)]
-        [FieldSpec(4, 3, "Personnel Area (Agency/Sub equivalent)\r\n")]
+        [FieldSpec(4, 3, "Personnel Area (Agency/Sub equivalent)")]
         public string Agency;
 
         [FieldFixedLength(4)]
@@ -53,7 +51,7 @@ namespace Hrms.Public.Files
         public string OrgTitle;
 
         [FieldFixedLength(5)]
-        [FieldSpec(5,76, "(SAP) Function Module")]
+        [FieldSpec(5, 76, "(SAP) Function Module")]
         public string WarrantRegisterNumber;
 
         [FieldFixedLength(7)]
@@ -92,7 +90,7 @@ namespace Hrms.Public.Files
         public string SalaryRange;
 
         [FieldFixedLength(8)]
-        [FieldSpec(8,155, "Char(8) Salary Step (Pay Scale Group)")]
+        [FieldSpec(8, 155, "Char(8) Salary Step (Pay Scale Group)")]
         public string SalaryStep;
 
         [FieldFixedLength(2)]
@@ -252,6 +250,11 @@ namespace Hrms.Public.Files
         [FieldSpec(1, 436, "CHAR(1) FTE 8 Sign the field is signed character ('+' for positive '-' for negative)")]
         public char FTE_8_Sign;
 
+        public const int Total_Length = 436;
+
+        public int GetRecordLength() => Total_Length;
+
+        public bool IsPossibleRecord(string record) => !string.IsNullOrEmpty(record) && record.Length == Total_Length && record.StartsWith("01");
     }
 
 }

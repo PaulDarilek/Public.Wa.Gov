@@ -1,10 +1,12 @@
 ﻿using FileHelpers;
 using System;
+using System.Diagnostics;
 
 namespace Hrms.Public.Converters
 {
 
     /// <summary>Summary description Convert string to decimal</summary>
+    [DebuggerStepThrough]
     public class ImpliedDecimalConverter : ConverterBase
     {
         public bool UsePlusSign { get; set; } 
