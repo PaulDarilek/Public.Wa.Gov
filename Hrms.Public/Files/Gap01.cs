@@ -1,17 +1,20 @@
 ﻿using FileHelpers.MasterDetail;
 using Hrms.Public.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace Hrms.Public.Files
 {
-    public class Gap01 : HeaderDetailFile<Gap01Header, Gap01Detail>
+    public class Gap01 : HeaderDetailBase<Gap01Header, Gap01Detail>, IReadWriteFile
     {
+        /// <summary>Default Constructor</summary>
         public Gap01()
         {
-            Details = Details ?? new List<Gap01Detail>();
         }
 
+        /// <summary>Default Constructor</summary>
         public Gap01(IEnumerable<Gap01Detail> details)
         {
             Details = new List<Gap01Detail>(details);

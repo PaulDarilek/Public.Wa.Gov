@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Hrms.Public.Files
 {
-    public class Gap07 : HeaderDetailFile<Gap07Header, Gap07Detail>
+    public class Gap07 : HeaderDetailBase<Gap07Header, Gap07Detail>, IReadWriteFile
     {
         public Gap07()
         {

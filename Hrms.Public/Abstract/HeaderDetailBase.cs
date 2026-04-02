@@ -1,0 +1,73 @@
+﻿using FileHelpers;
+using FileHelpers.MasterDetail;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+
+namespace Hrms.Public.Abstract
+{
+
+    [DebuggerStepThrough]
+    public abstract class HeaderDetailBase<THeader, TDetail> : IReadWriteFile 
+        where THeader : class, IFixedLengthFile
+        where TDetail : class, IFixedLengthFile
+    {
+        public THeader Header { get; set; }
+        public List<TDetail> Details { get; set; } = new List<TDetail>();
+
+
+        public virtual int ReadFile(FileInfo fileInfo)
+        {
+            var engine = new MasterDetailEngine<THeader, TDetail>(Selector);
+            var result = engine.ReadFile(fileInfo.FullName);
+            int count = 0;
+            foreach (var group in result)
+            {
+                if (group.Master != null)
+                {
+                    Header = Header ?? group.Master;
+                    count++;
+                }
+                if (group.Details != null)
+                {
+                    Details.AddRange(group.Details);
+                    count += group.Details.Length;
+                }
+            }
+            return count;
+        }
+
+        public virtual int WriteFile(FileInfo fileInfo)
+        {
+            using (var writer = new StreamWriter(fileInfo.FullName, append: false))
+            {
+                return WriteStream(writer);
+            }
+        }
+
+        public virtual int WriteStream(TextWriter writer)
+        {
+            int count = 0;
+            // Write header to stream
+            if (Header != null)
+            {
+                var headers = new FileHelperEngine<THeader>();
+                headers.WriteStream(writer, new[] { Header });
+                count += headers.TotalRecords;
+            }
+
+            // Write details to stream
+            if (Details != null && Details.Count > 0)
+            {
+                var details = new FileHelperEngine<TDetail>();
+                details.WriteStream(writer, Details);
+                count += details.TotalRecords;
+            }
+
+            return count;
+        }
+
+        protected abstract RecordAction Selector(string record);
+    }
+
+}

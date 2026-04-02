@@ -28,7 +28,7 @@ namespace Hrms.Public.Files
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 11, "Employee Group (Permanent, Temporary, etc)")]
-        public string EmployeeGroup;
+        public char EmployeeGroup;
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 12, "Employee Sub Group (Monthly, Hourly, etc.)")]
@@ -56,7 +56,7 @@ namespace Hrms.Public.Files
 
         [FieldFixedLength(7)]
         [FieldSpec(7, 81, "Warrant/EFT Number (Sap: truncate from 13 to 7 characters, See Extension FIEXT001)")]
-        public char WarrantEftNumber;
+        public string WarrantEftNumber;
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 88, "Warrant Cancellation Indicator 'C'")]

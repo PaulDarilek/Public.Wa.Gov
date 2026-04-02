@@ -1,14 +1,15 @@
-﻿using FileHelpers;
-using Hrms.Public.Abstract;
-using Microsoft.Extensions.FileProviders;
+﻿using Hrms.Public.Abstract;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Hrms.Public.Files
 {
-    public class Gap08 : IReadFixedLengthFile, IWriteFixedLengthFile
+    public class Gap08 : IReadWriteFile
     {
+        /// <summary>Data</summary>
         public List<Gap08Header> Rows { get; set; } = new List<Gap08Header>();
+
+        /// <summary>Constructor</summary>
         public Gap08()
         {
             Rows = Rows ?? new List<Gap08Header>();
@@ -19,34 +20,14 @@ namespace Hrms.Public.Files
             Rows = new List<Gap08Header>(rows);
         }
 
-        public int WriteFile(IFileInfo fileInfo)
+        public int ReadFile(FileInfo fileInfo)
         {
-            int count = 0;
-            using (var writer = new StreamWriter(fileInfo.PhysicalPath))
-            {
-                // Write header to stream
-                var headers = new FileHelperEngine<Gap08Header>();
-                headers.WriteStream(writer, Rows);
-                count += headers.TotalRecords;
-            }
-            return count;
+            Rows = fileInfo.ReadData<Gap08Header>();
+            return Rows.Count;
         }
 
-        public int ReadFile(IFileInfo fileInfo)
-        {
-            using (var reader = new StreamReader(fileInfo.PhysicalPath))
-            {
-                return ReadFromStream(reader);
-            }
-        }
+        public int WriteFile(FileInfo fileInfo) => fileInfo.WriteData(Rows);
 
-        public int ReadFromStream(TextReader reader)
-        {
-            var engine = new FixedFileEngine<Gap08Header>();
-            var result = engine.ReadStream(reader);
-            Rows.AddRange(result);
-            return engine.TotalRecords;
-        }
     }
 
 }
