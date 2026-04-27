@@ -2,9 +2,6 @@
 using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
 using System;
-using System.Diagnostics.Metrics;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace Hrms.Public.Files
 {
@@ -56,10 +53,12 @@ namespace Hrms.Public.Files
 
         [FieldFixedLength(7)]
         [FieldSpec(7, 81, "Warrant/EFT Number (Sap: truncate from 13 to 7 characters, See Extension FIEXT001)")]
+        [FieldNullValue(typeof(string), null)]
         public string WarrantEftNumber;
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 88, "Warrant Cancellation Indicator 'C'")]
+        [FieldNullValue(typeof(char), " ")]
         public char WarrantCancellationIndicator;
 
         /// <summary>PersonnelNumber</summary>

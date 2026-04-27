@@ -5,7 +5,7 @@ namespace Hrms.Public.Tests
 {
     public class TestGap08 : TestBase
     {
-        public override string DefaultFileName => "Gap08.txt";
+        public override string DefaultFileName => "Gap8.txt";
 
         [Fact]
         public void CreateFile()

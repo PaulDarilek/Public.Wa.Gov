@@ -5,7 +5,7 @@ namespace Hrms.Public.Tests;
 
 public class TestGap07 : TestBaseHeaderDetail<Gap07, Gap07Header, Gap07Detail>
 {
-    public override string DefaultFileName => $"{Gap07Header.Interface_Identifier_Constant}.txt";
+    public override string DefaultFileName => "Gap7.txt";  // $"{Gap07Header.Interface_Identifier_Constant}.txt";
 
     [Fact]
     public void CreateFile()

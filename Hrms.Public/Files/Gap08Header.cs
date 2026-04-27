@@ -11,7 +11,7 @@ namespace Hrms.Public.Files
     /// Only "Header" Records.
     /// <see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP8-Map.pdf"/>
     /// </remarks>
-    [FixedLengthRecord()]
+    [FixedLengthRecord(FixedMode.AllowMoreChars)]
     public class Gap08Header : IFixedLengthFile
     {
         [FieldFixedLength(4)]
