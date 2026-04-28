@@ -15,6 +15,7 @@ namespace Hrms.Public.Tests
 
         protected virtual FileInfo GetInputFile() => new FileInfo(Path.Combine(Settings.InputDirectory.FullName, DefaultFileName));
         protected virtual FileInfo GetOutputFile() => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, DefaultFileName));
+        protected virtual FileInfo GetErrorFile() => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, "Errors.txt"));
 
 
         /// <summary>Compare two files line by Line</summary>

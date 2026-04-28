@@ -36,6 +36,7 @@ namespace Hrms.Public.Tests
             IConfiguration root = new ConfigurationBuilder()
             .SetBasePath(System.IO.Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddUserSecrets<AppSettings>()
             .Build();
 
             var section = string.IsNullOrEmpty(sectionName) ? root : root.GetSection(sectionName);
