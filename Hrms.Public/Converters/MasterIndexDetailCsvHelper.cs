@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace Hrms.Public.Converters
 {
     /// <summary>Order of Columns for Master Index</summary>
-    internal class MasterIndexDetailCsvHelper : CsvHelperBase
+    public class MasterIndexDetailCsvHelper : CsvHelperBase
     {
         public readonly byte Bienium = 0;
         public readonly byte Agency = 1;

@@ -1,9 +1,7 @@
 ﻿using FileHelpers.MasterDetail;
 using Hrms.Public.Abstract;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace Hrms.Public.Files
 {
@@ -21,12 +19,12 @@ namespace Hrms.Public.Files
             Header = new Gap01Header(details);
         }
 
-        protected override RecordAction Selector(string record)
+        public override RecordAction RecordSelector(string record)
         {
             if (string.IsNullOrEmpty(record) || record.Length < 2)
             {
                 return RecordAction.Skip;
-            }
+            }    
             string recordType = record.Substring(0, 2);
             if (recordType == "00")
             {

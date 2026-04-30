@@ -12,7 +12,7 @@ namespace Hrms.Public.Files
     /// <see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP8-Map.pdf"/>
     /// </remarks>
     [FixedLengthRecord(FixedMode.AllowMoreChars)]
-    public class Gap08Header : IFixedLengthFile
+    public class Gap08LeaveSummary : IFixedLengthFile
     {
         [FieldFixedLength(4)]
         [FieldSpec(4, 1, "Personnel Area (Agency/Sub equivalent)")]

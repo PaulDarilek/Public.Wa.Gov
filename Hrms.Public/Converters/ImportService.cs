@@ -10,13 +10,21 @@ namespace Hrms.Public.Converters
 {
 
     /// <summary>Handle Importing FlatFiles</summary>
-    internal class ImportService
+    public class ImportService
     {
         /// <summary>Convert a flat file into a DataTable</summary>
         public DataTable ReadFileAsDataTable<T>(FileInfo sourceFile) where T : class, IFixedLengthFile
         {
             var engine = new FileHelperEngine<T>();
             var result = engine.ReadFileAsDT(sourceFile.FullName);
+            return result;
+        }
+
+        public DataTable CreateDataTable<T>(IEnumerable<T> rows, string name = null) where T : class, IFixedLengthFile
+        {
+            var engine = new FileHelperEngine<T>();
+            var result = engine.ReadStringAsDT(engine.WriteString(rows));
+            result.TableName = name ?? typeof(T).Name;
             return result;
         }
 

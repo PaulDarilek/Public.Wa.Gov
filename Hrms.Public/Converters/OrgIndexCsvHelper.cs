@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Hrms.Public.Converters
 {
-    internal class OrgIndexCsvHelper : CsvHelperBase
+    public class OrgIndexCsvHelper : CsvHelperBase
     {
         public readonly byte Biennium = 0;
         public readonly byte Agency = 1;

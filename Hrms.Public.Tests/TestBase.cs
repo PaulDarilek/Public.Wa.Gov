@@ -1,21 +1,28 @@
 ﻿using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hrms.Public.Tests
 {
     public abstract class TestBase
     {
         public abstract string DefaultFileName { get; }
+        public virtual string ErrorFileName { get; } = "Errors.txt";
 
         protected AppSettings Settings { get; } = new AppSettings();
 
-        protected virtual FileInfo GetInputFile() => new FileInfo(Path.Combine(Settings.InputDirectory.FullName, DefaultFileName));
-        protected virtual FileInfo GetOutputFile() => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, DefaultFileName));
-        protected virtual FileInfo GetErrorFile() => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, "Errors.txt"));
+        protected virtual FileInfo GetInputFile(string? fileName = null) => new FileInfo(Path.Combine(Settings.InputDirectory.FullName, fileName ?? DefaultFileName));
+        protected virtual FileInfo GetOutputFile(string? fileName = null) => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, fileName ?? DefaultFileName));
+        protected virtual FileInfo GetErrorFile(string? fileName = null) => new FileInfo(Path.Combine(Settings.OutputDirectory.FullName, fileName ?? ErrorFileName));
+
+        protected void CopyTestDataToInput(FileInfo file)
+        {
+            if (file.Exists) 
+                return;
+            
+            var source = new FileInfo(Path.Combine(Environment.CurrentDirectory, "TestData", file.Name ?? DefaultFileName));
+            
+            if (source.Exists)
+                source.CopyTo(file.FullName);
+        }
 
 
         /// <summary>Compare two files line by Line</summary>
@@ -40,7 +47,7 @@ namespace Hrms.Public.Tests
                 var firstRow = firstLines[i];
                 var secondRow = secondLines[i];
 
-                secondRow.Should().BeEquivalentTo(firstRow);
+                secondRow.Should().BeEquivalentTo(firstRow, $"Lines {i+1} should match");
             }
         }
 

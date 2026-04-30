@@ -16,11 +16,12 @@ namespace Hrms.Public.Tests
             "Whatabout, Fred",
             "Realee, Harry",
             "Contrary, Mary",
+            "Jenney, Jenny",
             };
             int empNumber = 1000;
             int ssn = 999999999;
 
-            var list = new List<Gap08Header>();
+            var list = new List<Gap08LeaveSummary>();
             foreach (var name in names)
             {
                 empNumber++;
@@ -28,7 +29,7 @@ namespace Hrms.Public.Tests
                 var employeeName = name.PadRight(30, ' ');
                 var personnelNumber = empNumber.ToString().PadLeft(8, '0');
 
-                var detail = new Gap08Header()
+                var detail = new Gap08LeaveSummary()
                 {
                     PersonnelArea = "1234",
                     PersonnelSubArea = "ABCD",

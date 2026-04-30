@@ -16,10 +16,19 @@ namespace Hrms.Public.Abstract
         public List<TDetail> Details { get; set; } = new List<TDetail>();
 
 
-        public virtual int ReadFile(FileInfo fileInfo)
+        public virtual int ReadFile(FileInfo fileInfo, FileInfo errorFile = null)
         {
-            var engine = new MasterDetailEngine<THeader, TDetail>(Selector);
+            var engine = new MasterDetailEngine<THeader, TDetail>()
+            {
+                RecordSelector = RecordSelector,
+                ErrorMode = ErrorMode.SaveAndContinue,
+            };
             var result = engine.ReadFile(fileInfo.FullName);
+            if (engine.ErrorManager.HasErrors && errorFile != null)
+            {
+                engine.ErrorManager.SaveErrors(errorFile.FullName);
+            }
+
             int count = 0;
             foreach (var group in result)
             {
@@ -67,7 +76,7 @@ namespace Hrms.Public.Abstract
             return count;
         }
 
-        protected abstract RecordAction Selector(string record);
+        public abstract RecordAction RecordSelector(string record);
     }
 
 }

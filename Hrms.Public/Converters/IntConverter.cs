@@ -7,7 +7,7 @@ namespace Hrms.Public.Converters
     /// <summary>Represents Zero Padded Integers (Optionally Non-Negative) </summary>
     /// <remarks>Negative sign will replace leading zero if negatives are allowed and value less than zero.</remarks>
     [DebuggerStepThrough]
-    internal class IntConverter : ConverterBase
+    public class IntConverter : ConverterBase
     {
         public byte Length { get; }
         public bool AllowNegative { get; }

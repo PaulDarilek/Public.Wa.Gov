@@ -5,6 +5,8 @@ using System.Diagnostics;
 
 namespace Hrms.Public.Files
 {
+    /// <summary>GAP7 Payroll Accounting Details</summary>
+    /// <remarks><see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP7-Map.pdf"/> </remarks>
     public class Gap07 : HeaderDetailBase<Gap07Header, Gap07Detail>, IReadWriteFile
     {
         public Gap07()
@@ -18,7 +20,7 @@ namespace Hrms.Public.Files
             Header = new Gap07Header(details);
         }
 
-        protected override RecordAction Selector(string record)
+        public override RecordAction RecordSelector(string record)
         {
             if (string.IsNullOrEmpty(record) || record.Length < 2)
             {

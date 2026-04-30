@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Hrms.Public.Converters
 {
-    internal class MasterIndexCsvHelper : CsvHelperBase
+    public class MasterIndexCsvHelper : CsvHelperBase
     {
         public readonly byte Biennium = 0;
         public readonly byte Agency = 1;

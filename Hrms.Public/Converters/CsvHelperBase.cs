@@ -5,7 +5,7 @@ using System.IO;
 namespace Hrms.Public.Converters
 {
     /// <summary>Helps with Importing CSV Files into Provided DataTable</summary>
-    internal abstract class CsvHelperBase
+    public abstract class CsvHelperBase
     {
         public DataTable Table { get; }
         public string TableName => Table.TableName;
