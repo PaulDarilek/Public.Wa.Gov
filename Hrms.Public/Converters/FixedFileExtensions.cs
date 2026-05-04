@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Hrms.Public.Abstract
+namespace Hrms.Public.Converters
 {
     public static class FixedFileExtensions
     {

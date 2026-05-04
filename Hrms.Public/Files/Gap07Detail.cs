@@ -1,6 +1,6 @@
 ﻿using FileHelpers;
-using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
+using Hrms.Public.Interfaces;
 using System;
 
 namespace Hrms.Public.Files
@@ -13,148 +13,146 @@ namespace Hrms.Public.Files
     {
         [FieldFixedLength(2)]
         [FieldSpec(2, 1, "Constant '01'")]
-        public string RecordType; //00 = Header, 01=Detail
+        public string RecordType { get; set; } //00 = Header, 01=Detail
 
         [FieldFixedLength(4)]
         [FieldSpec(4, 3, "Personnel Area (Agency/Sub equivalent)")]
-        public string Agency;
+        public string Agency { get; set; }
 
         [FieldFixedLength(4)]
         [FieldSpec(4, 7, "Personnel Sub Area (Bargaining Unit equivalent)")]
-        public string BargainingUnit;
+        public string BargainingUnit { get; set; }
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 11, "Employee Group (Permanent, Temporary, etc)")]
-        public char EmployeeGroup;
+        public string EmployeeGroup { get; set; }
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 12, "Employee Sub Group (Monthly, Hourly, etc.)")]
-        public string EmployeeSubGroup;
+        public string EmployeeSubGroup { get; set; }
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 14, "Payroll Area (Pay Cycle)")]
-        public string PayrollArea;
+        public string PayrollArea { get; set; }
 
         [FieldFixedLength(8)]
         [FieldSpec(8, 16, "Org Unit (Department)")]
-        public string OrgUnit;
+        public string OrgUnit { get; set; }
 
         [FieldFixedLength(12)]
         [FieldSpec(12, 24, "Org Code (Cost Center equivalent)")]
-        public string OrgCode;
+        public string OrgCode { get; set; }
 
         [FieldFixedLength(40)]
         [FieldSpec(40, 36, "Org Title (Department Name)")]
-        public string OrgTitle;
+        public string OrgTitle { get; set; }
 
         [FieldFixedLength(5)]
         [FieldSpec(5, 76, "(SAP) Function Module")]
-        public string WarrantRegisterNumber;
+        public string WarrantRegisterNumber { get; set; }
 
         [FieldFixedLength(7)]
         [FieldSpec(7, 81, "Warrant/EFT Number (Sap: truncate from 13 to 7 characters, See Extension FIEXT001)")]
-        [FieldNullValue(typeof(string), null)]
-        public string WarrantEftNumber;
+        public string WarrantEftNumber { get; set; }
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 88, "Warrant Cancellation Indicator 'C'")]
-        [FieldNullValue(typeof(char), " ")]
-        public char WarrantCancellationIndicator;
+        public string WarrantCancellationIndicator { get; set; }
 
         /// <summary>PersonnelNumber</summary>
         [FieldFixedLength(8)]
         [FieldSpec(8, 89, "Employee number/Personnel number")]
-        public string EmployeeNumber;
+        public string EmployeeNumber { get; set; }
 
         [FieldFixedLength(9)]
-        [FieldValueDiscarded]
+        //[FieldValueDiscarded]
         [FieldSpec(9, 97, "Employee Socical Security Number")]
-        public string SSN;
+        public string SSN { get; set; }
 
         [FieldFixedLength(30)]
         [FieldSpec(30, 106, "Employee Name")]
-        public string EmployeeName;
+        public string EmployeeName { get; set; }
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 136, "Employee Status (Active/Terminated) 'A' or 'T'")]
-        public char EmployeeStatus;
+        public string EmployeeStatus { get; set; }
 
         [FieldFixedLength(16)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.LeadingSeparate, 13, 2)]
+        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
         [FieldSpec(16, 137, "DEC(13,2) 5 digits with implied decimal point (13 left, 2 right) plus low order sign or blank")]
-        public decimal Salary;
+        public decimal Salary { get; set; }
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 153, "Salary Range (Pay Scale Area)")]
-        public string SalaryRange;
+        public string SalaryRange { get; set; }
 
         [FieldFixedLength(8)]
         [FieldSpec(8, 155, "Char(8) Salary Step (Pay Scale Group)")]
-        public string SalaryStep;
+        public string SalaryStep { get; set; }
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 163, "Salary Level (Pay Scale Level)")]
-        public string SalaryLevel;
+        public string SalaryLevel { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         [FieldSpec(8, 165, "DATS(8) CCYYMMDD Pay date (warrant and/or ACH date)")]
-        public DateTime PayDate;
+        public DateTime PayDate { get; set; }
 
         [FieldFixedLength(8)]
         [FieldSpec(8, 173, "NUMC(8) Position Number")]
-        public string Position;
+        public string Position { get; set; }
 
         [FieldFixedLength(12)]
         [FieldSpec(12, 181, "CHAR(12) Position Code")]
-        public string PositionCode;
+        public string PositionCode { get; set; }
 
         [FieldFixedLength(40)]
         [FieldSpec(40, 193, "CHAR(40) Position Title")]
-        public string PositionTitle;
+        public string PositionTitle { get; set; }
 
         [FieldFixedLength(8)]
         [FieldSpec(8, 233, "NUMC(8) Job Key")]
-        public string JobClass;
+        public string JobClass { get; set; }
 
         [FieldFixedLength(12)]
         [FieldSpec(12, 241, "CHAR(12) Job Class Code (From PAY1 Conversion)")]
-        public string JobClassCode;
+        public string JobClassCode { get; set; }
 
         /// <summary>JobTitle / Class Title</summary>
         [FieldFixedLength(40)]
         [FieldSpec(40, 253, "CHAR(40) (Class Title) Job Title")]
-        public string JobTitle;
+        public string JobTitle { get; set; }
 
         /// <summary>Pay & ded codes</summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 293, "CHAR(4) Pay & ded codes")]
-        public string WageType;
+        public string WageType { get; set; }
 
         /// <summary>Pay & ded codes</summary>
         [FieldFixedLength(8)]
         [FieldSpec(8, 297, "CHAR(8) Pay & ded text (short description)")]
-        public string WageTypeText;
+        public string WageTypeText { get; set; }
 
         [FieldFixedLength(5)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 2, 2)]
         [FieldSpec(5, 305, "NUMC(5) 5 digits with implied decimal point (2 left, 2 right), last position within the field is the signed character (blank for positive '-' for negative)")]
-        public decimal FTE;
+        public decimal FTE { get; set; }
 
         [FieldFixedLength(13)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 2)]
         [FieldSpec(13, 310, "NUMC(13) 13 digits with implied decimal point (10 left, 2 right), last position within the field is the signed character (blank for positive '-' for negative)")]
-        public decimal CurrentHours;
+        public decimal CurrentHours { get; set; }
 
         [FieldFixedLength(13)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 2)]
         [FieldSpec(13, 323, "NUMC(13) 13 digits with implied decimal point (10 left, 2 right), last position within the field is the signed character (blank for positive '-' for negative)")]
-        public decimal CurrentAmount;
+        public decimal CurrentAmount { get; set; }
 
         /// <summary>AFRS Agency</summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 336, "Char(4) Equiv. to AFRS Agency")]
-        public string BusinessArea;
+        public string BusinessArea { get; set; }
 
         /// <summary>
         /// AFRS Agency + Prog Index
@@ -164,7 +162,7 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(16)]
         [FieldSpec(16, 340, "Char(16) Equiv. to AFRS Agency + Prog Index")]
-        public string FunctionalArea;
+        public string FunctionalArea { get; set; }
 
         /// <summary>
         /// AFRS Agency + Master Index
@@ -174,7 +172,7 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(12)]
         [FieldSpec(12, 356, "Char(12) Equiv. to AFRS Agency + Master Index")]
-        public string CostObject;
+        public string CostObject { get; set; }
 
         /// <summary>
         /// AFRS Agency + Fund + Appr Index
@@ -185,7 +183,7 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(10)]
         [FieldSpec(10, 368, "Char(10) Equiv. to AFRS Agency + Fund + Appr Index")]
-        public string Fund;
+        public string Fund { get; set; }
 
         /// <summary>
         /// AFRS Agency + Org Index
@@ -195,7 +193,7 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(10)]
         [FieldSpec(10, 378, "Char(10) Equiv. to AFRS Agency + Org Index")]
-        public string CostCenter;
+        public string CostCenter { get; set; }
 
         /// <summary>
         /// AFRS Agency + Project-No + Sub-Project + Project-Phase
@@ -204,7 +202,7 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(11)]
         [FieldSpec(11, 388, "Char(11) Equiv. to AFRS Agency + Project-No + Sub-Project + Project-Phase")]
-        public string ProjectStructure;
+        public string ProjectStructure { get; set; }
 
         /// <summary>
         /// AFRS Agency + Allocation Code
@@ -213,41 +211,41 @@ namespace Hrms.Public.Files
         /// </summary>
         [FieldFixedLength(7)]
         [FieldSpec(7, 399, "Char(7) Equiv. to AFRS Agency + Allocation Code")]
-        public string AllocationCode;
+        public string AllocationCode { get; set; }
 
         /// <summary></summary>
         [FieldFixedLength(2)]
         [FieldSpec(2, 406, "Char(2)")]
-        public string SubObject;
+        public string SubObject { get; set; }
 
         /// <summary></summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 408, "Char(4)")]
-        public string SubSubObject;
+        public string SubSubObject { get; set; }
 
         /// <summary></summary>
         [FieldFixedLength(4)]
         [FieldSpec(4, 412, "Char(4) (SAP: GL_ACCT)")]
-        public string GeneralLedgers;
+        public string GeneralLedgers { get; set; }
 
         /// <summary>Payroll In Period</summary>
         [FieldFixedLength(6)]
         [FieldSpec(6, 416, "CHAR(6) Payroll In Period")]
-        public string InPeriod;
+        public string InPeriod { get; set; }
 
         /// <summary>Payroll For Period</summary>
         [FieldFixedLength(6)]
         [FieldSpec(6, 422, "CHAR(6) Payroll For Period")]
-        public string ForPeriod;
+        public string ForPeriod { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 2, 6)]
         [FieldSpec(8, 428, "NUMC(8) FTE (Full Time Equivalent) 8 digits with implied decimal point (2 left, 6 right)")]
-        public decimal FTE_8;
+        public decimal FTE_8 { get; set; }
 
         [FieldFixedLength(1)]
         [FieldSpec(1, 436, "CHAR(1) FTE 8 Sign the field is signed character ('+' for positive '-' for negative)")]
-        public char FTE_8_Sign;
+        public string FTE_8_Sign { get; set; }
 
         public const int Total_Length = 436;
 

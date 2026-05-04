@@ -1,5 +1,5 @@
 ﻿using FileHelpers;
-using Hrms.Public.Abstract;
+using Hrms.Public.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;

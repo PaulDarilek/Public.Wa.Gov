@@ -1,5 +1,5 @@
 ﻿using FileHelpers.MasterDetail;
-using Hrms.Public.Abstract;
+using Hrms.Public.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 

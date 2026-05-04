@@ -1,4 +1,5 @@
-﻿using Hrms.Public.Abstract;
+﻿using Hrms.Public.Converters;
+using Hrms.Public.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,6 +14,7 @@ namespace Hrms.Public.Files
     {
         /// <summary>Data</summary>
         public List<Gap08LeaveSummary> Rows { get; set; } = new List<Gap08LeaveSummary>();
+        public int TotalCount => Rows.Count;    
 
         /// <summary>Constructor</summary>
         public Gap08()

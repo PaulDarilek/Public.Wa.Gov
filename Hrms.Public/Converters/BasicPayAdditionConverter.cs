@@ -25,7 +25,7 @@ namespace Hrms.Public.Converters
             {
                 SalaryComponent = record.Substring(0, 4),
                 SalaryRate = ParseSalary.Parse(record.Substring(4, 8)),
-                AddToTotal = record[12],
+                AddToTotal = record.Substring(12, 1),
             };
         }
 

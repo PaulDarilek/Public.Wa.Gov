@@ -1,5 +1,6 @@
 ﻿using FileHelpers;
-using Hrms.Public.Abstract;
+using Hrms.Public.Converters;
+using Hrms.Public.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,60 +14,29 @@ namespace Hrms.Public.Files
     /// <remarks><see cref="https://support.hrms.wa.gov/sites/default/files/public/resources/interfaces/GAP9-Map.pdf"/> </remarks>
     public class Gap09 : IReadWriteFile
     {
-        public List<Gap09Common> Data { get; }
+        public List<IGap09Common> Data { get; }
         public List<string> Errors { get; }
 
-        public int TotalRecords => Data.Count;
+        public int TotalCount => Data.Count;
 
         public Gap09()
         {
-            Data = new List<Gap09Common>();
+            Data = new List<IGap09Common>();
             Errors = new List<string>();
         }
 
-        public IEnumerable<T> GetData<T>() where T : Gap09Common
+        public IEnumerable<T> GetData<T>() where T : class, IGap09Common
             => Data.Where(x => x.GetType() == typeof(T)).Select(x => x as T);
 
         public int ReadFile(FileInfo fileInfo, FileInfo errorFile = null)
         {
-            var engine = new MultiRecordEngine(
-                typeof(Gap09_0000_Actions),
-                typeof(Gap09_0001_OrgAssignment),
-                typeof(Gap09_0002_PersonalData),
-                typeof(Gap09_0006_Address),
-                typeof(Gap09_0007_WorkSchedule),
-                typeof(Gap09_0008_BasicPay),
-                typeof(Gap09_0016_Probationary),
-                typeof(Gap09_0019_Tasks),
-                typeof(Gap09_0021_Family),
-                typeof(Gap09_0022_Education),
-                typeof(Gap09_0023_Employers),
-                typeof(Gap09_0027_CostDistribution),
-                typeof(Gap09_0040_Loan),
-                typeof(Gap09_0041_Dates),
-                typeof(Gap09_0077_AdditionalData),
-                typeof(Gap09_0081_Military),
-                typeof(Gap09_0094_Residence),
-                typeof(Gap09_0105_Communications),
-                typeof(Gap09_0121_Personnel),
-                typeof(Gap09_0167_HealthPlans),
-                typeof(Gap09_0169_SavingsPlan),
-                typeof(Gap09_0209_Unemployment),
-                typeof(Gap09_0377_MiscPlans),
-                typeof(Gap09_0552_Time)
-                )
-            {
-                RecordSelector = RecordSelector
-            };
-
-            // Switch error mode on
-            engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
+            var engine = CreateEngine();
 
             engine.BeginReadFile(fileInfo.FullName);
             foreach (var rec in engine)
             {
                 Console.WriteLine(rec.ToString());
-                if (rec is Gap09Common data)
+                if (rec is IGap09Common data)
                 {
                     Data.Add(data); continue;
                 }
@@ -80,8 +50,8 @@ namespace Hrms.Public.Files
             {
                 engine.ErrorManager.SaveErrors(errorFile.FullName);
             }
-
-            return engine.TotalRecords;
+            //Debug.Assert(engine.TotalRecords == TotalRecords);
+            return TotalCount;
         }
 
         /// <summary>Split Gap9 into Files per record type</summary>
@@ -132,7 +102,14 @@ namespace Hrms.Public.Files
         {
             Debug.Assert(engine != null);
             string recordType = GetRecordType(record);
-            return GetTypeOfRecord(recordType);
+            var type = GetTypeOfRecord(recordType);
+
+            if(type == typeof(Gap09_0007_WorkSchedule))
+            {
+                Debug.WriteLine($"{typeof(Gap09_0077_AdditionalData).Name} length = {record.Length}");
+            }
+
+            return type;
         }
 
         public static string GetRecordType(string record)
@@ -221,10 +198,52 @@ namespace Hrms.Public.Files
             }
         }
 
-        public int WriteFile(FileInfo fileInfo)
+        public int WriteFile(FileInfo file)
         {
-            throw new NotImplementedException();
+            var engine = CreateEngine();
+            engine.WriteFile(file.FullName, Data);
+            Debug.Assert(engine.TotalRecords == TotalCount);
+
+            return engine.TotalRecords;
         }
+
+        private MultiRecordEngine CreateEngine()
+        {
+            var engine = new MultiRecordEngine(
+                typeof(Gap09_0000_Actions),
+                typeof(Gap09_0001_OrgAssignment),
+                typeof(Gap09_0002_PersonalData),
+                typeof(Gap09_0006_Address),
+                typeof(Gap09_0007_WorkSchedule),
+                typeof(Gap09_0008_BasicPay),
+                typeof(Gap09_0016_Probationary),
+                typeof(Gap09_0019_Tasks),
+                typeof(Gap09_0021_Family),
+                typeof(Gap09_0022_Education),
+                typeof(Gap09_0023_Employers),
+                typeof(Gap09_0027_CostDistribution),
+                typeof(Gap09_0040_Loan),
+                typeof(Gap09_0041_Dates),
+                typeof(Gap09_0077_AdditionalData),
+                typeof(Gap09_0081_Military),
+                typeof(Gap09_0094_Residence),
+                typeof(Gap09_0105_Communications),
+                typeof(Gap09_0121_Personnel),
+                typeof(Gap09_0167_HealthPlans),
+                typeof(Gap09_0169_SavingsPlan),
+                typeof(Gap09_0209_Unemployment),
+                typeof(Gap09_0377_MiscPlans),
+                typeof(Gap09_0552_Time)
+                )
+            {
+                RecordSelector = RecordSelector
+            };
+
+            // Switch error mode on
+            engine.ErrorManager.ErrorMode = ErrorMode.SaveAndContinue;
+            return engine;
+        }
+
     }
 
 }

@@ -1,4 +1,4 @@
-﻿namespace Hrms.Public.Abstract
+﻿namespace Hrms.Public.Interfaces
 {
 
     /// <summary>Marker Interface for Fixed Length File Formats</summary>

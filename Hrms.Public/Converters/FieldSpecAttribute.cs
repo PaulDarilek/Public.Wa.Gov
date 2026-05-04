@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hrms.Public.Abstract
+namespace Hrms.Public.Converters
 {
     /// <summary>Specification for a field in a Fixed Position Layout</summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]

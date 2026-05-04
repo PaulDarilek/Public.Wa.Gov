@@ -1,10 +1,11 @@
 ﻿using FileHelpers;
 using FileHelpers.MasterDetail;
+using Hrms.Public.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace Hrms.Public.Abstract
+namespace Hrms.Public.Files
 {
 
     [DebuggerStepThrough]
@@ -14,7 +15,7 @@ namespace Hrms.Public.Abstract
     {
         public THeader Header { get; set; }
         public List<TDetail> Details { get; set; } = new List<TDetail>();
-
+        public int TotalCount => Details.Count + (Header == null ? 0 : 1);
 
         public virtual int ReadFile(FileInfo fileInfo, FileInfo errorFile = null)
         {
@@ -48,7 +49,7 @@ namespace Hrms.Public.Abstract
 
         public virtual int WriteFile(FileInfo fileInfo)
         {
-            using (var writer = new StreamWriter(fileInfo.FullName, append: false))
+            using (var writer = new StreamWriter(fileInfo.FullName, false))
             {
                 return WriteStream(writer);
             }
@@ -73,6 +74,7 @@ namespace Hrms.Public.Abstract
                 count += details.TotalRecords;
             }
 
+            writer.Flush();
             return count;
         }
 

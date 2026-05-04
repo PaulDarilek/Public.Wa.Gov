@@ -1,6 +1,6 @@
 ﻿using FileHelpers;
-using Hrms.Public.Abstract;
 using Hrms.Public.Converters;
+using Hrms.Public.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -14,43 +14,43 @@ namespace Hrms.Public.Files
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 1, "Constant '00'")]
-        public string RecordType; //00 = Header, 01=Detail
+        public string RecordType { get; set; } //00 = Header, 01=Detail
 
         [FieldFixedLength(8)]
         [FieldSpec(8, 3, "Constant 'OIFPY007'")]
-        public string InterfaceIdentifer; // "OIFPY007"
+        public string InterfaceIdentifer { get; set; } // "OIFPY007"
 
         [FieldFixedLength(2)]
         [FieldSpec(2, 11, "Version Identifier")]
-        public string VersionIdentifer; // "01" at go-live, incremented when format changes.
+        public string VersionIdentifer { get; set; } // "01" at go-live, incremented when format changes.
 
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         [FieldSpec(8, 13, "NUMC(8) CCYYMMDD")]
-        public DateTime DateCreated;
+        public DateTime DateCreated { get; set; }
 
         [FieldFixedLength(6)]
         [FieldSpec(6, 21, "NUMC(6) HHMMSS")]
-        public string TimeCreated; //HHmmss
+        public string TimeCreated { get; set; } //HHmmss
 
         [FieldFixedLength(6)]
-        [FieldConverter(ConverterKind.Int32)]
+        [FieldConverter(typeof(IntConverter), 6, false)]
         [FieldSpec(6, 27, "NUMC(6) Total Number of Detail records in file, leading zeros")]
-        public int TotalDetailRecordCount;
+        public int TotalDetailRecordCount { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
         [FieldSpec(16, 33, "DEC(13,2) 5 digits with implied decimal point (13 left, 2 right) plus low order sign or blank")]
-        public decimal TotalDetailNumberOfHours;
+        public decimal TotalDetailNumberOfHours { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
         [FieldSpec(16, 49, "DEC(13,2) 5 digits with implied decimal point (13 left, 2 right) plus low order sign or blank")]
-        public decimal TotalDetailAmount;
+        public decimal TotalDetailAmount { get; set; }
 
         [FieldFixedLength(351)]
         [FieldSpec(351, 65, "Filler - spaces")]
-        public string Filler;
+        public string Filler { get; set; }
 
 
         public const int Total_Length = 415;
