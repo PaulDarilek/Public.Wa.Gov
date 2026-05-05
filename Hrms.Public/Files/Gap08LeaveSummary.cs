@@ -15,140 +15,140 @@ namespace Hrms.Public.Files
     public class Gap08LeaveSummary : IFixedLengthFile
     {
         [FieldFixedLength(4)]
-        [FieldSpec(4, 1, "Personnel Area (Agency/Sub equivalent)")]
+        [StartPosition(1, "Personnel Area (Agency/Sub equivalent)")]
         public string PersonnelArea { get; set; }
 
         [FieldFixedLength(4)]
-        [FieldSpec(4, 5, "Personnel Sub Area (Bargaining Unit equivalent)")]
+        [StartPosition(5, "Personnel Sub Area (Bargaining Unit equivalent)")]
         public string PersonnelSubArea { get; set; }
 
         [FieldFixedLength(1)]
-        [FieldSpec(1, 9, "Employee Group (Permanent, Temporary, etc)")]
+        [StartPosition(9, "Employee Group (Permanent, Temporary, etc)")]
         public string EmployeeGroup { get; set; }
 
         [FieldFixedLength(2)]
-        [FieldSpec(2, 10, "Employee Sub Group (Monthly, Hourly, etc.)")]
+        [StartPosition(10, "Employee Sub Group (Monthly, Hourly, etc.)")]
         public string EmployeeSubGroup { get; set; }
 
         [FieldFixedLength(8)]
-        [FieldSpec(8, 12, "NUMC(8) Organizational Unit (SAP assigned)")]
+        [StartPosition(12, "NUMC(8) Organizational Unit (SAP assigned)")]
         public string OrgUnit { get; set; }
 
         [FieldFixedLength(12)]
-        [FieldSpec(12, 20, "CHAR(12) Org Code (Cost Center equivalent)")]
+        [StartPosition(20, "CHAR(12) Org Code (Cost Center equivalent)")]
         public string OrgCode { get; set; }
 
         [FieldFixedLength(40)]
-        [FieldSpec(40, 32, "CHAR(40) Org Title (Department Name)")]
+        [StartPosition(32, "CHAR(40) Org Title (Department Name)")]
         public string OrgTitle { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [FieldSpec(8, 72, "DATS(8) YYYYMMDD Date Leave Effective")]
+        [StartPosition(72, "DATS(8) YYYYMMDD Date Leave Effective")]
         public DateTime EffectiveDate { get; set; }
 
         [FieldFixedLength(8)]
-        [FieldSpec(8, 80, "NUMC(8) Employee Number / Personnel Number")]
+        [StartPosition(80, "NUMC(8) Employee Number / Personnel Number")]
         public string PersonnelNumber { get; set; }
 
         [FieldFixedLength(9)]
         //[FieldValueDiscarded]
-        [FieldSpec(9, 88, "NUMC(9) SSN - can send this or Employee number/Personnel number")]
+        [StartPosition(88, "NUMC(9) SSN - can send this or Employee number/Personnel number")]
         public string SSN { get; set; }
 
         [FieldFixedLength(30)]
-        [FieldSpec(30, 97, "CHAR(30) Employee Name")]
+        [StartPosition(97, "CHAR(30) Employee Name")]
         public string EmployeeName { get; set; }
 
         [FieldFixedLength(18)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 15, 2)]
-        [FieldSpec(18, 127, "DEC (15,2) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(127, "DEC (15,2) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal Salary { get; set; }
 
         [FieldFixedLength(8)]
-        [FieldSpec(8, 145, "NUMC(8) Position Number (Assigned by SAP)")]
+        [StartPosition(145, "NUMC(8) Position Number (Assigned by SAP)")]
         [FieldConverter(typeof(IntConverter), 8, false)]
         public int Position { get; set; }
 
         [FieldFixedLength(12)]
-        [FieldSpec(12, 153, "Char(12) Position Number (from PAY1 Conversion)")]
+        [StartPosition(153, "Char(12) Position Number (from PAY1 Conversion)")]
         public string PositionCode { get; set; }
 
         [FieldFixedLength(40)]
         [FieldTrim(TrimMode.Right)]
-        [FieldSpec(40, 165, "Char(40) Position Title")]
+        [StartPosition(165, "Char(40) Position Title")]
         public string PositionTitle { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(typeof(IntConverter), 8, false)]
-        [FieldSpec(8, 205, "NUMC(8) Job Key (assigned by SAP)")]
+        [StartPosition(205, "NUMC(8) Job Key (assigned by SAP)")]
         public int Job { get; set; }
 
         [FieldFixedLength(12)]
-        [FieldSpec(12, 213, "Char(12) Job Class Code (from PAY1 Conversion)")]
+        [StartPosition(213, "Char(12) Job Class Code (from PAY1 Conversion)")]
         public string JobClassCode { get; set; }
 
         [FieldFixedLength(40)]
-        [FieldSpec(40, 225, "Char(40) Job Title")]
+        [StartPosition(225, "Char(40) Job Title")]
         public string JobTitle { get; set; }
 
         [FieldFixedLength(2)]
-        [FieldSpec(2, 265, "Char(2) Leave Quota Type (code identifying Sick, Annual, Personal Holiday, etc.)")]
+        [StartPosition(265, "Char(2) Leave Quota Type (code identifying Sick, Annual, Personal Holiday, etc.)")]
         public string LeaveType { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [FieldSpec(8, 267, "DATS(8) YYYYMMDD First day of period for current leave accrual process")]
+        [StartPosition(267, "DATS(8) YYYYMMDD First day of period for current leave accrual process")]
         public DateTime BeginDate { get; set; }
 
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [FieldSpec(8, 275, "DATS(8) YYYYMMDD Last day of period for current leave accrual process")]
+        [StartPosition(275, "DATS(8) YYYYMMDD Last day of period for current leave accrual process")]
         public DateTime EndDate { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 283, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(283, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal BeginingBalance { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 299, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(299, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveEarned { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 315, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(315, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveTaken { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 331, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(331, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeavePaid { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 347, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(347, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveAdjustment { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 363, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(363, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveDonated { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 379, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(379, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveReturned { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 395, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(395, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal LeaveReceived { get; set; }
 
         [FieldFixedLength(16)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 10, 5)]
-        [FieldSpec(16, 411, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
+        [StartPosition(411, "DEC (10,5) Implied decimal point, trailing and leading zeros, single character at the end (' ' if positive, '-' if negative)")]
         public decimal EndingBalance { get; set; }
 
         [FieldFixedLength(1)]
