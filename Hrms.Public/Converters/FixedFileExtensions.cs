@@ -8,7 +8,7 @@ namespace Hrms.Public.Converters
 {
     public static class FixedFileExtensions
     {
-        public static List<T> ReadData<T>(this FileInfo fileInfo) where T : class
+        public static List<T> ReadAsList<T>(this FileInfo fileInfo) where T : class
             => new FileHelperEngine<T>().ReadFileAsList(fileInfo.FullName);
 
         public static int WriteData<T>(this FileInfo fileInfo, IEnumerable<T> records) where T : class

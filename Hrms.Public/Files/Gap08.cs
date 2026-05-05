@@ -29,7 +29,7 @@ namespace Hrms.Public.Files
 
         public int ReadFile(FileInfo fileInfo, FileInfo errorFile = null)
         {
-            Rows = fileInfo.ReadData<Gap08LeaveSummary>();
+            Rows = fileInfo.ReadAsList<Gap08LeaveSummary>();
             return Rows.Count;
         }
 
