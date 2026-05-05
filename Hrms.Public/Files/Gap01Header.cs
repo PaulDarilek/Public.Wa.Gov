@@ -16,63 +16,63 @@ namespace Hrms.Public.Files
 
         /// <summary>(Header) CHAR(2) 2 1 Constant "00"</summary>
         [FieldFixedLength(2)]
-        [FieldSpec(2, 1, "Constant '00'")]
+        [StartPosition(1, "Constant '00'")]
         public string RecordType { get; set; }
 
         /// <summary>CHAR(8) 8 3 Constant "IIFTM001"</summary>
         [FieldFixedLength(8)][MaxLength(8)]
-        [FieldSpec(8, 3, "Constant 'IIFTM001'")]
+        [StartPosition(3, "Constant 'IIFTM001'")]
         public string InterfaceIdentifier { get; set; }
 
         /// <summary>DATS(8) 8 11 YYYYMMDD</summary>
-        [FieldFixedLength(8)][FieldSpec(8, 11, "DATS(8) 8 11 YYYYMMDD")]
+        [FieldFixedLength(8)][StartPosition(11, "DATS(8) 8 11 YYYYMMDD")]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime DateCreated { get; set; } 
 
         /// <summary>NUMC(6) 6 19 HHMMSS</summary>
         [FieldFixedLength(6)]
-        [FieldSpec(6, 19, "NUMC(6) HHMMSS")]
+        [StartPosition(19, "NUMC(6) HHMMSS")]
         public string TimeCreated { get; set; }
 
         /// <summary>CHAR(1) 1 25 Constant "D" or "S"</summary>
         [FieldFixedLength(1)]
-        [FieldSpec(1, 25, "CHAR(1) Constant 'D' or 'S'")]
+        [StartPosition(25, "CHAR(1) Constant 'D' or 'S'")]
         public string DetailTypeInd { get; set; }
 
         /// <summary></summary>
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [FieldSpec(8, 26, "DATS(8) YYYYMMDD Begin Date of Period")]
+        [StartPosition(26, "DATS(8) YYYYMMDD Begin Date of Period")]
         public DateTime BeginDate { get; set; }
 
         /// <summary>DATS(8) 8 34 YYYYMMDD n/a n/a End Date of Period</summary>
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [FieldSpec(8, 34, "DATS(8) YYYYMMDD End Date of Period")]
+        [StartPosition(34, "DATS(8) YYYYMMDD End Date of Period")]
         public DateTime EndDate { get; set; }
 
         /// <summary>NUMC(6) 6 42 Total Number of Detail records in file, leading zeros</summary>
         [FieldFixedLength(6)]
         [FieldConverter(typeof(IntConverter), 6, false)]
-        [FieldSpec(6, 42, "NUMC(6) Total Number of Detail records in file, leading zeros")]
+        [StartPosition(42, "NUMC(6) Total Number of Detail records in file, leading zeros")]
         public int TotalDetailRecordCount { get; set; }
 
         /// <summary>DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(8)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 6, 2)]
-        [FieldSpec(8, 48, "DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.")]
+        [StartPosition(48, "DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.")]
         public decimal TotalDetailNumberOfHours { get; set; }
 
         /// <summary>DEC(7,2) 9(7)V99 (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(9)]
         [FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 7, 2)]
-        [FieldSpec(9, 56, "DEC(7,2) 7 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
+        [StartPosition(56, "DEC(7,2) 7 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
         public decimal TotalDetailDollarAmount { get; set; }
 
         /// <summary>DEC(6) 6 65 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
         [FieldFixedLength(6)]
         [FieldConverter(typeof(IntConverter), 6, false)]
-        [FieldSpec(6, 65, "DEC(6) 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
+        [StartPosition(65, "DEC(6) 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
         public int TotalDetailMileageAmount { get; set; }
 
         public const int Total_Length = 71;
