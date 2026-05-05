@@ -14,162 +14,177 @@ namespace Hrms.Public.Files
 
         #region IGap09Common
 
-        /// <summary>Personnel Area (Agency/Sub equivalent)</summary>
+        /// <summary>Personnel Area</summary>
+        /// <remarks>Agency/Sub equivalent</remarks>
         [FieldOrder(1)]
+        [StartPosition(1)]
         [FieldFixedLength(4)]
-        [StartPosition(1, "Personnel Area (Agency/Sub equivalent)")]
         public string PersonnelArea { get; set; }
 
         /// <summary>Personnel Sub Area (Bargaining Unit equivalent)</summary>
         [FieldOrder(2)]
+        [StartPosition(5)]
         [FieldFixedLength(4)]
-        [StartPosition(5, "Personnel Sub Area (Bargaining Unit equivalent)")]
         public string PersonnelSubArea { get; set; }
 
         /// <summary>Employee Group (Permanent, Temporary, etc)</summary>
         [FieldOrder(3)]
+        [StartPosition(9)]
         [FieldFixedLength(1)]
-        [StartPosition(9, "Employee Group (Permanent, Temporary, etc)")]
         public string EmployeeGroup { get; set; }
 
         /// <summary>Employee Sub Group (Monthly, Hourly, etc.)</summary>
         [FieldOrder(4)]
+        [StartPosition(10)]
         [FieldFixedLength(2)]
-        [StartPosition(10, "Employee Sub Group (Monthly, Hourly, etc.)")]
         public string EmployeeSubGroup { get; set; }
 
         /// <summary>Personnel Number / Employee Number</summary>
+        /// <remarks>PA0001 PERNR Personnel Number</remarks>
         [FieldOrder(5)]
+        [StartPosition(12)]
         [FieldFixedLength(8)]
-        [StartPosition(12, "PA0001 PERNR Personnel Number")]
         public string PersonnelNumber { get; set; }
 
         /// <summary>Social Security Number</summary>
+        /// <remarks>PA0002 PERID Social Security Number</remarks>
         [FieldOrder(6)]
+        [StartPosition(20)]
         [FieldFixedLength(9)]
-        [StartPosition(20, "PA0002 PERID Social Security Number")]
         public string SSN { get; set; }
 
         /// <summary>Date of last change</summary>
+        /// <remarks>YYYYMMDD PA0000 AEDTM Date of Last Change</remarks>
         [FieldOrder(7)]
+        [StartPosition(29)]
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(29, "YYYYMMDD PA0000 AEDTM Date of Last Change")]
         public DateTime DateChanged { get; set; }
 
         /// <summary>Name of person who changed object</summary>
+        /// <remarks>PA0000 UNAME Name of person who changed object</remarks>
         [FieldOrder(8)]
+        [StartPosition(37)]
         [FieldFixedLength(12)]
-        [StartPosition(37, "PA0000 UNAME Name of person who changed object")]
         [FieldTrim(TrimMode.Right)]
         public string PersonChanged { get; set; }
 
         /// <summary>Record Type</summary>
+        /// <remarks>Record Type identifies the Gap09 subtype</remarks>
         [FieldOrder(9)]
+        [StartPosition(49)]
         [FieldFixedLength(4)]
-        [StartPosition(49, "Record Type identifies the Gap09 subtype")]
         public string RecordType { get; set; }
 
         /// <summary>CCYYMMDD Start Date</summary>
+        /// <remarks>CCYYMMDD DATS(8) PA0000 BEGDA Start date</remarks>
         [FieldOrder(10)]
+        [StartPosition(53)]
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(53, "CCYYMMDD DATS(8) PA0000 BEGDA Start date")]
         public DateTime DateEffective { get; set; }
 
         /// <summary>End Date</summary>
+        /// <remarks>CCYYMMDD PA0000 ENDDA End Date</remarks>
         [FieldOrder(11)]
+        [StartPosition(61)]
         [FieldFixedLength(8)]
         [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(61, "CCYYMMDD PA0000 ENDDA End Date")]
         public DateTime EndDate { get; set; }
 
         #endregion
 
         /// <summary>Position Number</summary>
+        /// <remarks>Assigned by SAP</remarks>
         [FieldOrder(12)]
+        [StartPosition(69)]
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(69, "Position Number (assigned by SAP)")]
         public string PositionNumber;
 
         /// <summary>Position Code</summary>
+        /// <remarks>Originally from PAY1</remarks>
         [FieldOrder(13)]
+        [StartPosition(77)]
         [FieldFixedLength(12)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(77, "Position Number (originally from PAY1)")]
         public string PositionCode;
 
         /// <summary>Position Title</summary>
         [FieldOrder(14)]
+        [StartPosition(89)]
         [FieldFixedLength(40)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(89, "Position Title")]
         public string PositionTitle;
 
         /// <summary>Job Class</summary>
+        /// <remarks>Assigned by SAP</remarks>
         [FieldOrder(15)]
+        [StartPosition(129)]
         [FieldFixedLength(8)]
-        [StartPosition(129, "Job Key (assigned by SAP)")]
         public string JobClass;
 
         /// <summary>Job Class</summary>
+        /// <remarks>Originally from PAY1</remarks>
         [FieldOrder(16)]
+        [StartPosition(137)]
         [FieldFixedLength(12)]
-        [StartPosition(137, "Job Class Code (originally from PAY1)")]
         public string JobClassCode;
 
         /// <summary>Job Title</summary>
         [FieldOrder(17)]
+        [StartPosition(149)]
         [FieldFixedLength(40)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(149, "Job Title")]
         public string JobTitle;
 
         /// <summary>Organization Unit</summary>
+        /// <remarks>Assigned by SAP</remarks>
         [FieldOrder(18)]
+        [StartPosition(189)]
         [FieldFixedLength(8)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(189, "Org. Unit (assigned by SAP)")]
         public string OrganizationUnit;
 
         /// <summary>Organization Code</summary>
+        /// <remarks>HRP1000 SHORT Org Code. Originally from PAY1</remarks>
         [FieldOrder(19)]
+        [StartPosition(197)]
         [FieldFixedLength(12)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(197, "Organization Code CHAR (12) HRP1000 SHORT Org Code originally (from PAY1)")]
         public string OrganizationCode;
 
         /// <summary>Organization Title</summary>
         [FieldOrder(20)]
+        [StartPosition(209)]
         [FieldFixedLength(40)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(209, "Organization Title")]
         public string OrganizationTitle;
 
         /// <summary>Time Administrator (Attendance Unit)</summary>
+        /// <remarks>Originally from PAY1</remarks>
         [FieldOrder(21)]
+        [StartPosition(249)]
         [FieldFixedLength(3)]
-        [StartPosition(249, "Time Administrator / Attendance Unit (originally from PAY1)")]
         public string TimeAdministrator;
 
-        /// <summary>Time Administrator (Attendance Unit)</summary>
+        /// <summary>Employee Group and Work Contract Type = Appointment Status</summary>
         [FieldOrder(22)]
+        [StartPosition(252)]
         [FieldFixedLength(2)]
-        [StartPosition(252, "Employee Group and Work Contract Type = Appointment Status")]
         public string WorkContractType;
 
-        /// <summary>Organization Code</summary>
+        /// <summary>Appointment Org Unit code</summary>
         [FieldOrder(23)]
+        [StartPosition(254)]
         [FieldFixedLength(14)]
         [FieldTrim(TrimMode.Right)]
-        [StartPosition(254, "Appointment Org Unit code")]
         public string OrganizationKey;
 
         /// <summary>Business Area</summary>
         [FieldOrder(24)]
+        [StartPosition(268)]
         [FieldFixedLength(4)]
-        [StartPosition(268, "Business Area Code")]
         public string BusinessAreaCode;
 
         public int GetRecordLength() => Total_Length;

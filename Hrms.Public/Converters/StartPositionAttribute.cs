@@ -3,6 +3,7 @@
 namespace Hrms.Public.Converters
 {
     /// <summary>Specification for a field in a Fixed Position Layout</summary>
+    /// <remarks>1 based position (subtract 1 for array offset)</remarks>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public class StartPositionAttribute : Attribute
     {

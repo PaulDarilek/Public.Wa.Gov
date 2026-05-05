@@ -15,7 +15,7 @@ namespace Hrms.Public.Files
     {
         public THeader Header { get; set; }
         public List<TDetail> Details { get; set; } = new List<TDetail>();
-        public int TotalCount => Details.Count + (Header == null ? 0 : 1);
+        public int RecordCount => Details.Count + (Header == null ? 0 : 1);
 
         public virtual int ReadFile(FileInfo fileInfo, FileInfo errorFile = null)
         {

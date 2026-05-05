@@ -14,7 +14,7 @@ namespace Hrms.Public.Files
     {
         /// <summary>Data</summary>
         public List<Gap08LeaveSummary> Rows { get; set; } = new List<Gap08LeaveSummary>();
-        public int TotalCount => Rows.Count;    
+        public int RecordCount => Rows.Count;    
 
         /// <summary>Constructor</summary>
         public Gap08()

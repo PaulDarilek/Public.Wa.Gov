@@ -17,7 +17,7 @@ namespace Hrms.Public.Files
         public List<IGap09Common> Data { get; }
         public List<string> Errors { get; }
 
-        public int TotalCount => Data.Count;
+        public int RecordCount => Data.Count;
 
         public Gap09()
         {
@@ -35,7 +35,6 @@ namespace Hrms.Public.Files
             engine.BeginReadFile(fileInfo.FullName);
             foreach (var rec in engine)
             {
-                Console.WriteLine(rec.ToString());
                 if (rec is IGap09Common data)
                 {
                     Data.Add(data); continue;
@@ -51,63 +50,19 @@ namespace Hrms.Public.Files
                 engine.ErrorManager.SaveErrors(errorFile.FullName);
             }
             //Debug.Assert(engine.TotalRecords == TotalRecords);
-            return TotalCount;
+            return RecordCount;
         }
 
         /// <summary>Split Gap9 into Files per record type</summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public async Task<Dictionary<string, FileInfo>> SplitFileAsync(FileInfo file)
-        {
-            var dict = new Dictionary<string, FileInfo>(StringComparer.OrdinalIgnoreCase);
-            if (!file.Exists)
-                return dict;
-
-            var streams = new Dictionary<string, StreamWriter>(StringComparer.OrdinalIgnoreCase);
-            using (var reader = file.OpenText())
-            {
-                StreamWriter writer;
-                var record = await reader.ReadLineAsync();
-                while (record != null)
-                {
-                    var key = GetRecordType(record);
-                    if (dict.ContainsKey(key))
-                    {
-                        writer = streams[key];
-                    }
-                    else
-                    {
-                        var fileName = $"{Path.GetFileNameWithoutExtension(file.Name)}_{key}{file.Extension}";
-                        var newFile = new FileInfo(Path.Combine(file.Directory.FullName, fileName));
-                        dict.Add(key, newFile);
-                        writer = newFile.CreateText();
-                        streams.Add(key, writer);
-                    }
-                    await writer.WriteLineAsync(record);
-
-                    record = await reader.ReadLineAsync();
-                }
-            }
-
-            foreach (var stream in streams.Values)
-            {
-                await stream.FlushAsync();
-                stream.Close();
-            }
-
-            return dict;
-        }
+        public Task<Dictionary<string, FileInfo>> SplitFileAsync(FileInfo file) => file.SplitFileAsync(GetRecordType);
 
         public static Type RecordSelector(MultiRecordEngine engine, string record)
         {
             Debug.Assert(engine != null);
             string recordType = GetRecordType(record);
             var type = GetTypeOfRecord(recordType);
-
-            if(type == typeof(Gap09_0007_WorkSchedule))
-            {
-                Debug.WriteLine($"{typeof(Gap09_0077_AdditionalData).Name} length = {record.Length}");
-            }
 
             return type;
         }
@@ -202,7 +157,7 @@ namespace Hrms.Public.Files
         {
             var engine = CreateEngine();
             engine.WriteFile(file.FullName, Data);
-            Debug.Assert(engine.TotalRecords == TotalCount);
+            Debug.Assert(engine.TotalRecords == RecordCount);
 
             return engine.TotalRecords;
         }

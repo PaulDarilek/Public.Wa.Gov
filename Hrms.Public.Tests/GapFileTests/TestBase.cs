@@ -58,7 +58,7 @@ namespace Hrms.Public.Tests.GapFileTests
             if (GapFile != null)
             {
                 int expectedCount = InputFile.GetLineCount();
-                GapFile.TotalCount.Should().Be(expectedCount);
+                GapFile.RecordCount.Should().Be(expectedCount);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Hrms.Public.Tests.GapFileTests
                 int writeCount;
                 writeCount = GapFile.WriteFile(OutputFile);
                 OutputFile.Refresh();
-                writeCount.Should().Be(GapFile.TotalCount);
+                writeCount.Should().Be(GapFile.RecordCount);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Hrms.Public.Tests.GapFileTests
             int expectedCount = InputFile.GetLineCount();
             var readCount = gapImport.ReadFile(InputFile);
 
-            readCount.Should().Be(gapImport.TotalCount);
+            readCount.Should().Be(gapImport.RecordCount);
             readCount.Should().Be(expectedCount);
 
             return gapImport;
