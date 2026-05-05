@@ -1,6 +1,5 @@
 ﻿using FileHelpers;
 using System;
-using System.Diagnostics;
 
 namespace Hrms.Public.Converters
 {
@@ -16,21 +15,27 @@ namespace Hrms.Public.Converters
         }
 
 
-        public override object StringToField(string from)
+        public override object StringToField(string from) => Parse(from, TrueValue, FalseValue) ?? false;
+        public override string FieldToString(object from) => Format(from as bool?, TrueValue, FalseValue) ?? FalseValue;
+
+        public static bool? Parse(string from, string TrueValue = "1", string FalseValue = "0")
         {
-            bool value = !string.IsNullOrEmpty(from) && TrueValue.Equals(from, StringComparison.OrdinalIgnoreCase);
-            Debug.Assert(value == true);
-            return value;
+            if (string.IsNullOrEmpty(from))
+                return null;
+
+            return
+                TrueValue.Equals(from, StringComparison.OrdinalIgnoreCase) ? true :
+                FalseValue.Equals(from, StringComparison.OrdinalIgnoreCase) ? false :
+                (bool?)null;
         }
 
-        public override string FieldToString(object from)
+        public static string Format(bool? value, string TrueValue = "1", string FalseValue = "0")
         {
-            string value = 
-                from == null || !(bool)from ? 
-                FalseValue : 
-                TrueValue;
-            Debug.Assert(!string.IsNullOrEmpty(value));
-            return value;
+            if (value == null)
+                return null;
+
+            return value.Value ? TrueValue : FalseValue;
         }
+
     }
 }
