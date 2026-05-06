@@ -11,62 +11,68 @@ namespace Hrms.Public.Files
     [FixedLengthRecord()]
     public class Gap07Header : IFixedLengthFile
     {
+        public const int Total_Length = 415;
+        public const int Trimmed_Length = 65;
+        public const string RecordTypeDefault = "00";
+        public const string InterfaceIdentifier_Constant = "OIFPY007";
 
-        [FieldFixedLength(2)]
-        [StartPosition(1, "Constant '00'")]
-        public string RecordType { get; set; } //00 = Header, 01=Detail
+        /// <summary>Record Type</summary>
+        /// <remarks>00 = Header, 01=Detail</remarks>
+        [StartPosition(1), FieldFixedLength(2)]
+        public string RecordType { get; set; }
 
-        [FieldFixedLength(8)]
-        [StartPosition(3, "Constant 'OIFPY007'")]
+        /// <summary>Interface Identifer</summary>
+        /// <remarks>Constant 'OIFPY007'"</remarks>
+        [StartPosition(3), FieldFixedLength(8)]
         public string InterfaceIdentifer { get; set; } // "OIFPY007"
 
-        [FieldFixedLength(2)]
-        [StartPosition(11, "Version Identifier")]
-        public string VersionIdentifer { get; set; } // "01" at go-live, incremented when format changes.
+        /// <summary>Version Identifier</summary>
+        /// <remarks>"01" at go-live, incremented when format changes.</remarks>
+        [StartPosition(11), FieldFixedLength(2)]
+        public string VersionIdentifer { get; set; }
 
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(13, "NUMC(8) CCYYMMDD")]
+        /// <summary></summary>
+        /// <remarks>NUMC(8) CCYYMMDD</remarks>
+        [StartPosition(13), FieldFixedLength(8), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime DateCreated { get; set; }
 
-        [FieldFixedLength(6)]
-        [StartPosition(21, "NUMC(6) HHMMSS")]
-        public string TimeCreated { get; set; } //HHmmss
+        /// <summary>Time Created</summary>
+        /// <remarks>NUMC(6) HHmmss</remarks>
+        [StartPosition(21), FieldFixedLength(6)]
+        public string TimeCreated { get; set; }
 
-        [FieldFixedLength(6)]
-        [FieldConverter(typeof(IntConverter), 6, false)]
-        [StartPosition(27, "NUMC(6) Total Number of Detail records in file, leading zeros")]
+        /// <summary>Total Detail Record Count</summary>
+        /// <remarks>NUMC(6) Total Number of Detail records in file, leading zeros</remarks>
+        [StartPosition(27), FieldFixedLength(6), FieldConverter(typeof(IntConverter), 6, false)]
         public int TotalDetailRecordCount { get; set; }
 
-        [FieldFixedLength(16)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
-        [StartPosition(33, "DEC(13,2) 5 digits with implied decimal point (13 left, 2 right) plus low order sign or blank")]
+        /// <summary></summary>
+        /// <remarks>DEC(13,2) implied decimal point (13 left, 2 right) plus low order sign or blank</remarks>
+        [StartPosition(33), FieldFixedLength(16), FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
         public decimal TotalDetailNumberOfHours { get; set; }
 
-        [FieldFixedLength(16)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
-        [StartPosition(49, "DEC(13,2) 5 digits with implied decimal point (13 left, 2 right) plus low order sign or blank")]
+        /// <summary>Total Detail Amount</summary>
+        /// <remarks>DEC(13,2) implied decimal point (13 left, 2 right) plus low order sign or blank</remarks>
+        [StartPosition(49), FieldFixedLength(16), FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 13, 2)]
         public decimal TotalDetailAmount { get; set; }
 
-        [FieldFixedLength(351)]
-        [StartPosition(65, "Filler - spaces")]
+        /// <summary>Filler (Unused)</summary>
+        /// <remarks>Spaces (do not use)</remarks>
+        [StartPosition(65), FieldFixedLength(351), FieldTrim(TrimMode.Right)]
         public string Filler { get; set; }
 
 
-        public const int Total_Length = 415;
-        public const int Trimmed_Length = 65;
-        public const string Interface_Identifier_Constant = "OIFPY007";
-
+        /// <summary></summary>
         public Gap07Header()
         {
             var now = DateTime.Now;
 
-            RecordType = "00";
-            InterfaceIdentifer = Interface_Identifier_Constant;
+            RecordType = RecordType ?? RecordTypeDefault;
+            InterfaceIdentifer = InterfaceIdentifer ?? InterfaceIdentifier_Constant;
             VersionIdentifer = VersionIdentifer ?? "01";
-            DateCreated = now.Date;
-            TimeCreated = now.ToString("HHmmss");
-            Filler = new string(' ', 351);
+            DateCreated = (DateCreated == DateTime.MinValue) ? now.Date : DateCreated;
+            TimeCreated = TimeCreated ?? now.ToString("HHmmss");
+            Filler = Filler ?? new string(' ', 351);
         }
 
         public Gap07Header(IEnumerable<Gap07Detail> details) : this()
@@ -90,7 +96,7 @@ namespace Hrms.Public.Files
             var recordType = record.Substring(0, 2);
             var interfaceIdentifier = record.Substring(2, 8);
 
-            return recordType == "00" && interfaceIdentifier == Interface_Identifier_Constant;
+            return recordType == "00" && interfaceIdentifier == InterfaceIdentifier_Constant;
         }
     }
 

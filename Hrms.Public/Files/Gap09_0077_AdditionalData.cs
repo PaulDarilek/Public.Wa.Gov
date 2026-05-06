@@ -16,148 +16,104 @@ namespace Hrms.Public.Files
 
         /// <summary>Personnel Area</summary>
         /// <remarks>Agency/Sub equivalent</remarks>
-        [FieldOrder(1)]
-        [StartPosition(1)]
-        [FieldFixedLength(4)]
+        [StartPosition(1), FieldFixedLength(4), FieldOrder(1)]
         public string PersonnelArea { get; set; }
 
         /// <summary>Personnel Sub Area (Bargaining Unit equivalent)</summary>
-        [FieldOrder(2)]
-        [StartPosition(5)]
-        [FieldFixedLength(4)]
+        [StartPosition(5), FieldFixedLength(4), FieldOrder(2)]
         public string PersonnelSubArea { get; set; }
 
         /// <summary>Employee Group (Permanent, Temporary, etc)</summary>
-        [FieldOrder(3)]
-        [StartPosition(9)]
-        [FieldFixedLength(1)]
+        [StartPosition(9), FieldFixedLength(1), FieldOrder(3)]
         public string EmployeeGroup { get; set; }
 
         /// <summary>Employee Sub Group (Monthly, Hourly, etc.)</summary>
-        [FieldOrder(4)]
-        [StartPosition(10)]
-        [FieldFixedLength(2)]
+        [StartPosition(10), FieldFixedLength(2), FieldOrder(4)]
         public string EmployeeSubGroup { get; set; }
 
         /// <summary>Personnel Number / Employee Number</summary>
         /// <remarks>PA0001 PERNR Personnel Number</remarks>
-        [FieldOrder(5)]
-        [StartPosition(12)]
-        [FieldFixedLength(8)]
+        [StartPosition(12), FieldFixedLength(8), FieldOrder(5)]
         public string PersonnelNumber { get; set; }
 
         /// <summary>Social Security Number</summary>
         /// <remarks>PA0002 PERID Social Security Number</remarks>
-        [FieldOrder(6)]
-        [StartPosition(20)]
-        [FieldFixedLength(9)]
+        [StartPosition(20), FieldFixedLength(9), FieldOrder(6)]
         public string SSN { get; set; }
 
         /// <summary>Date of last change</summary>
         /// <remarks>YYYYMMDD PA0000 AEDTM Date of Last Change</remarks>
-        [FieldOrder(7)]
-        [StartPosition(29)]
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        [StartPosition(29), FieldFixedLength(8), FieldOrder(7), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime DateChanged { get; set; }
 
         /// <summary>Name of person who changed object</summary>
         /// <remarks>PA0000 UNAME Name of person who changed object</remarks>
-        [FieldOrder(8)]
-        [StartPosition(37)]
-        [FieldFixedLength(12)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(37), FieldFixedLength(12), FieldOrder(8), FieldTrim(TrimMode.Right)]
         public string PersonChanged { get; set; }
 
         /// <summary>Record Type</summary>
         /// <remarks>Record Type identifies the Gap09 subtype</remarks>
-        [FieldOrder(9)]
-        [StartPosition(49)]
-        [FieldFixedLength(4)]
+        [StartPosition(49), FieldFixedLength(4), FieldOrder(9)]
         public string RecordType { get; set; }
 
         /// <summary>CCYYMMDD Start Date</summary>
         /// <remarks>CCYYMMDD DATS(8) PA0000 BEGDA Start date</remarks>
-        [FieldOrder(10)]
-        [StartPosition(53)]
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        [StartPosition(53), FieldFixedLength(8), FieldOrder(10), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime DateEffective { get; set; }
 
         /// <summary>End Date</summary>
         /// <remarks>CCYYMMDD PA0000 ENDDA End Date</remarks>
-        [FieldOrder(11)]
-        [StartPosition(61)]
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        [StartPosition(61), FieldFixedLength(8), FieldOrder(11), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime EndDate { get; set; }
 
         #endregion
 
         /// <summary>Ethnic code</summary>
-        [FieldOrder(12)]
-        [FieldFixedLength(2)]
-        [StartPosition(69)]
+        [StartPosition(69), FieldFixedLength(2), FieldOrder(12)]
         public string EthnicCode { get; set; }
 
         /// <summary>Hispanic</summary>
-        [FieldOrder(13)]
-        [FieldFixedLength(2)]
-        [StartPosition(71)]
+        [StartPosition(71), FieldFixedLength(2), FieldOrder(13)]
         public string Hispanic { get; set; }
 
         /// <summary>Racial Category (Array of 10)</summary>
-        [FieldOrder(14)]
-        [FieldArrayLength(10), FieldFixedLength(2)]
-        [StartPosition(73, "(Array of 10 two char codes)")]
+        /// <remarks>(Array of 10 two char codes)</remarks>
+        [StartPosition(73), FieldOrder(14), FieldArrayLength(10), FieldFixedLength(2)]
         public string[] RacialCategory { get; set; }
 
         /// <summary>Military Status</summary>
-        [FieldOrder(15)]
-        [FieldFixedLength(2)]
-        [StartPosition(93)]
+        [StartPosition(93), FieldFixedLength(2), FieldOrder(15)]
         public string MilitaryStatus { get; set; }
 
         /// <summary>EEO Exempt indicator</summary>
-        [FieldOrder(16)]
-        [FieldFixedLength(1)]
-        [StartPosition(95)]
+        [StartPosition(95), FieldFixedLength(1), FieldOrder(16)]
         public string EeoExemptIndicator { get; set; }
 
         /// <summary>Disability</summary>
-        [FieldOrder(17)]
-        [FieldFixedLength(1)]
-        [StartPosition(96)]
+        [StartPosition(96), FieldFixedLength(1), FieldOrder(17)]
         public string Disability { get; set; }
 
         /// <summary>Date of Determination of Disability</summary>
-        [FieldOrder(18)]
-        [FieldFixedLength(8)]
-        [FieldConverter(typeof(DateWithZeroConverter))]
-        [StartPosition(97)]
+        [StartPosition(97), FieldFixedLength(8), FieldOrder(18), FieldConverter(typeof(DateWithZeroConverter))]
         public DateTime? DisabilityDeterminationDate { get; set; }
 
         /// <summary>Date Employer Learned of Disability</summary>
-        [FieldOrder(19)]
-        [FieldFixedLength(8)]
-        [StartPosition(105)]
+        [StartPosition(105), FieldFixedLength(8), FieldOrder(19)]
         public string DisabilityEmployerNotificationDate { get; set; }
 
         /// <summary>Veteran status</summary>
-        [FieldOrder(20)]
-        [FieldFixedLength(1)]
-        [StartPosition(113, "VETST")]
+        /// <remarks>VETST</remarks>
+        [StartPosition(113), FieldFixedLength(1), FieldOrder(20)]
         public string VeteranStatus { get; set; }
 
         /// <summary>Veteran status #1 - #12</summary>
-        [FieldOrder(21)]
-        [FieldArrayLength(12), FieldFixedLength(2)]
-        //[FieldTrim(TrimMode.Right)]
-        [StartPosition(114, "Veteran status #1 - #12 (Array of 12 two char codes)")]
+        [FieldOrder(21), FieldArrayLength(12), FieldFixedLength(2)]
+        ///// <remarks>Veteran status #1 - #12 (Array of 12 two char codes)</remarks>
+        [StartPosition(114), FieldTrim(TrimMode.Right)]
         public string[] VeteranStatusCodes { get; set; }
 
         public int GetRecordLength() => Total_Length;
-        
+
         public bool IsPossibleRecord(string record)
         {
             return

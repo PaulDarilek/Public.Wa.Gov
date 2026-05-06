@@ -8,12 +8,10 @@ namespace Hrms.Public.Converters
     public class StartPositionAttribute : Attribute
     {
         public int StartPosition { get; set; }
-        public string Notes { get; set; }
 
-        public StartPositionAttribute(int startPosition, string notes = "")
+        public StartPositionAttribute(int startPosition)
         {
             StartPosition = startPosition;
-            Notes = notes;
         }
     }
 }

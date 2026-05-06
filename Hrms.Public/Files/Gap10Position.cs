@@ -13,347 +13,217 @@ namespace Hrms.Public.Files
 
 
         /// <summary>Effective Date</summary>
-        [FieldOrder(6)]
-        [StartPosition(69)]
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        [StartPosition(69), FieldFixedLength(8), FieldOrder(6), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime EffectiveDate { get; set; }
 
         /// <summary>End Date</summary>
-        [FieldOrder(7)]
-        [StartPosition(77)]
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        [StartPosition(77), FieldFixedLength(8), FieldOrder(7), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime EndDate { get; set; }
 
         /// <summary>Job ID</summary>
-        [FieldOrder(8)]
-        [StartPosition(85)]
-        [FieldFixedLength(8)]
+        [StartPosition(85), FieldFixedLength(8), FieldOrder(8)]
         public string JobID { get; set; }
 
         /// <summary>Job Title (Legacy)</summary>
-        [FieldOrder(9)]
-        [StartPosition(93)]
-        [FieldFixedLength(12)]
+        [StartPosition(93), FieldFixedLength(12), FieldOrder(9)]
         public string JobTitleLegacy { get; set; }
 
         /// <summary>Job Title</summary>
-        [FieldOrder(10)]
-        [StartPosition(105)]
-        [FieldFixedLength(40)]
+        [StartPosition(105), FieldFixedLength(40), FieldOrder(10)]
         public string JobTitle { get; set; }
 
         /// <summary>Org Unit ID</summary>
-        [FieldOrder(11)]
-        [StartPosition(145, "NUMC(8)")]
-        [FieldFixedLength(8)]
+        /// <remarks>NUMC(8)</remarks>
+        [StartPosition(145), FieldFixedLength(8), FieldOrder(11)]
         public string OrgUnitId { get; set; }
 
         /// <summary>Org Unit Title-Legacy</summary>
-        [FieldOrder(12)]
-        [StartPosition(153)]
-        [FieldFixedLength(12)]
+        [StartPosition(153), FieldFixedLength(12), FieldOrder(12)]
         public string OrgUnitTitleLegacy { get; set; }
 
         /// <summary>Org Unit Title</summary>
-        [FieldOrder(13)]
-        [StartPosition(165)]
-        [FieldFixedLength(40)]
+        [StartPosition(165), FieldFixedLength(40), FieldOrder(13)]
         public string OrgUnitTitle { get; set; }
 
         /// <summary>Pay Grade Type</summary>
-        [FieldOrder(14)]
-        [StartPosition(205)]
-        [FieldFixedLength(2)]
+        [StartPosition(205), FieldFixedLength(2), FieldOrder(14)]
         public string PayGradeType { get; set; }
 
         /// <summary>Pay Grade Area</summary>
-        [FieldOrder(15)]
-        [StartPosition(207)]
-        [FieldFixedLength(2)]
+        [StartPosition(207), FieldFixedLength(2), FieldOrder(15)]
         public string PayGradeArea { get; set; }
 
         /// <summary>Pay Grade</summary>
-        [FieldOrder(16)]
-        [StartPosition(209)]
-        [FieldFixedLength(8)]
+        [StartPosition(209), FieldFixedLength(8), FieldOrder(16)]
         public string PayGrade { get; set; }
 
         /// <summary>Pay Grade Level From</summary>
-        [FieldOrder(17)]
-        [StartPosition(217)]
-        [FieldFixedLength(2)]
+        [StartPosition(217), FieldFixedLength(2), FieldOrder(17)]
         public string PayGradeLevelFrom { get; set; }
 
         /// <summary>Pay Grade Level To</summary>
-        [FieldOrder(18)]
-        [StartPosition(219)]
-        [FieldFixedLength(2)]
+        [StartPosition(219), FieldFixedLength(2), FieldOrder(18)]
         public string PayGradeLevelTo { get; set; }
 
         /// <summary>Minimum Salary</summary>
-        [FieldOrder(19)]
-        [StartPosition(221, "DEC(11,2)")]
-        [FieldFixedLength(14)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 11, 2)]
+        /// <remarks>DEC(11,2)</remarks>
+        [StartPosition(221), FieldFixedLength(14), FieldOrder(19), FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 11, 2)]
         public decimal MinimumSalary { get; set; }
 
         /// <summary>Maximum Salary</summary>
-        [FieldOrder(20)]
-        [StartPosition(235, "DEC(11,2)")]
-        [FieldFixedLength(14)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 11, 2)]
+        /// <remarks>DEC(11,2)</remarks>
+        [StartPosition(235), FieldFixedLength(14), FieldOrder(20), FieldConverter(typeof(ImpliedDecimalConverter), Sign.TrailingSeparate, 11, 2)]
         public decimal MaximumSalary { get; set; }
 
         /// <summary>Vacancy Start</summary>
-        [FieldOrder(21)]
-        [StartPosition(249)]
-        [FieldFixedLength(8)]
+        [StartPosition(249), FieldFixedLength(8), FieldOrder(21)]
         public string VacancyStart { get; set; }
 
         /// <summary>Vacancy End</summary>
-        [FieldOrder(22)]
-        [StartPosition(257)]
-        [FieldFixedLength(8)]
+        [StartPosition(257), FieldFixedLength(8), FieldOrder(22)]
         public string VacancyEnd { get; set; }
 
         /// <summary>Vacancy Open</summary>
         /// <remarks>'X' = Open, ' '=filled</remarks>
-        [FieldOrder(23)]
-        [StartPosition(265)]
-        [FieldFixedLength(1)]
-        [FieldConverter(typeof(BoolConverter), "X", " ")]
+        [StartPosition(265), FieldFixedLength(1), FieldOrder(23), FieldConverter(typeof(BoolConverter), "X", " ")]
         public bool? VacancyOpen { get; set; }
 
         /// <summary>Company Code</summary>
-        [FieldOrder(24)]
-        [StartPosition(266)]
-        [FieldFixedLength(4)]
+        [StartPosition(266), FieldFixedLength(4), FieldOrder(24)]
         public string CompanyCode { get; set; }
 
         /// <summary>Business Area</summary>
-        [FieldOrder(25)]
-        [StartPosition(270)]
-        [FieldFixedLength(4)]
+        [StartPosition(270), FieldFixedLength(4), FieldOrder(25)]
         public string BusinessArea { get; set; }
 
         /// <summary>Personnel Subarea</summary>
-        [FieldOrder(26)]
-        [StartPosition(274)]
-        [FieldFixedLength(4)]
+        [StartPosition(274), FieldFixedLength(4), FieldOrder(26)]
         public string PersonnelSubArea { get; set; }
 
         /// <summary>Employee Group</summary>
-        [FieldOrder(27)]
-        [StartPosition(278)]
-        [FieldFixedLength(1)]
+        [StartPosition(278), FieldFixedLength(1), FieldOrder(27)]
         public string EmployeeGroup { get; set; }
 
         /// <summary>Employee Sub Group</summary>
-        [FieldOrder(28)]
-        [StartPosition(279)]
-        [FieldFixedLength(2)]
+        [StartPosition(279), FieldFixedLength(2), FieldOrder(28)]
         public string EmployeeSubGroup { get; set; }
 
         /// <summary>Address Supplement-Main</summary>
         /// <remarks>(c/o)</remarks>
-        [FieldOrder(29)]
-        [StartPosition(281)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(281), FieldFixedLength(25), FieldOrder(29), FieldTrim(TrimMode.Right)]
         public string AddressSupplementMain { get; set; }
 
         /// <summary>House number and street (Main)</summary>
-        [FieldOrder(30)]
-        [StartPosition(306)]
-        [FieldFixedLength(35)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(306), FieldFixedLength(35), FieldOrder(30), FieldTrim(TrimMode.Right)]
         public string HouseNumberStreetMain { get; set; }
 
         /// <summary>House number (Main)</summary>
-        [FieldOrder(31)]
-        [StartPosition(341)]
-        [FieldFixedLength(6)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(341), FieldFixedLength(6), FieldOrder(31), FieldTrim(TrimMode.Right)]
         public string HouseNumberMain { get; set; }
 
         /// <summary>Street (Main)</summary>
-        [FieldOrder(32)]
-        [StartPosition(347)]
-        [FieldFixedLength(30)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(347), FieldFixedLength(30), FieldOrder(32), FieldTrim(TrimMode.Right)]
         public string StreetMain { get; set; }
 
         /// <summary>Postal Code (Main)</summary>
-        [FieldOrder(33)]
-        [StartPosition(377)]
-        [FieldFixedLength(10)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(377), FieldFixedLength(10), FieldOrder(33), FieldTrim(TrimMode.Right)]
         public string PostalCodeMain { get; set; }
 
         /// <summary>City (Main)</summary>
-        [FieldOrder(34)]
-        [StartPosition(387)]
-        [FieldFixedLength(40)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(387), FieldFixedLength(40), FieldOrder(34), FieldTrim(TrimMode.Right)]
         public string CityMain { get; set; }
 
         /// <summary>Country (Main)</summary>
-        [FieldOrder(35)]
-        [StartPosition(427)]
-        [FieldFixedLength(3)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(427), FieldFixedLength(3), FieldOrder(35), FieldTrim(TrimMode.Right)]
         public string CountryMain { get; set; }
 
         /// <summary>Room Number (Main)</summary>
-        [FieldOrder(36)]
-        [StartPosition(430)]
-        [FieldFixedLength(8)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(430), FieldFixedLength(8), FieldOrder(36), FieldTrim(TrimMode.Right)]
         public string RoomNumberMain { get; set; }
 
         /// <summary>Telephone Number (Main)</summary>
-        [FieldOrder(37)]
-        [StartPosition(438)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(438), FieldFixedLength(25), FieldOrder(37), FieldTrim(TrimMode.Right)]
         public string TelephoneNumberMain { get; set; }
 
         /// <summary>Fax Number (Main)</summary>
-        [FieldOrder(38)]
-        [StartPosition(463)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(463), FieldFixedLength(25), FieldOrder(38), FieldTrim(TrimMode.Right)]
         public string FaxNumberMain { get; set; }
 
         /// <summary>Address Supplement-Temp</summary>
         /// <remarks>(c/o)</remarks>
-        [FieldOrder(39)]
-        [StartPosition(488)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(488), FieldFixedLength(25), FieldOrder(39), FieldTrim(TrimMode.Right)]
         public string AddressSupplementTemp { get; set; }
 
         /// <summary>House number and street (Temp)</summary>
-        [FieldOrder(40)]
-        [StartPosition(513)]
-        [FieldFixedLength(35)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(513), FieldFixedLength(35), FieldOrder(40), FieldTrim(TrimMode.Right)]
         public string HouseNumberStreetTemp { get; set; }
 
         /// <summary>House number (Temp)</summary>
-        [FieldOrder(41)]
-        [StartPosition(548)]
-        [FieldFixedLength(6)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(548), FieldFixedLength(6), FieldOrder(41), FieldTrim(TrimMode.Right)]
         public string HouseNumberTemp { get; set; }
 
         /// <summary>Street (Temp)</summary>
-        [FieldOrder(42)]
-        [StartPosition(554)]
-        [FieldFixedLength(30)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(554), FieldFixedLength(30), FieldOrder(42), FieldTrim(TrimMode.Right)]
         public string StreetTemp { get; set; }
 
         /// <summary>Postal Code (Temp)</summary>
-        [FieldOrder(43)]
-        [StartPosition(584)]
-        [FieldFixedLength(10)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(584), FieldFixedLength(10), FieldOrder(43), FieldTrim(TrimMode.Right)]
         public string PostalCodeTemp { get; set; }
 
         /// <summary>City (Temp)</summary>
-        [FieldOrder(44)]
-        [StartPosition(594)]
-        [FieldFixedLength(40)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(594), FieldFixedLength(40), FieldOrder(44), FieldTrim(TrimMode.Right)]
         public string CityTemp { get; set; }
 
         /// <summary>Country (Temp)</summary>
-        [FieldOrder(45)]
-        [StartPosition(634)]
-        [FieldFixedLength(3)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(634), FieldFixedLength(3), FieldOrder(45), FieldTrim(TrimMode.Right)]
         public string CountryTemp { get; set; }
 
         /// <summary>Room Number (Temp)</summary>
-        [FieldOrder(46)]
-        [StartPosition(637)]
-        [FieldFixedLength(8)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(637), FieldFixedLength(8), FieldOrder(46), FieldTrim(TrimMode.Right)]
         public string RoomNumberTemp { get; set; }
 
         /// <summary>Telephone Number (Temp)</summary>
-        [FieldOrder(47)]
-        [StartPosition(645)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(645), FieldFixedLength(25), FieldOrder(47), FieldTrim(TrimMode.Right)]
         public string TelephoneNumberTemp { get; set; }
 
         /// <summary>Fax Number (Temp)</summary>
-        [FieldOrder(48)]
-        [StartPosition(670)]
-        [FieldFixedLength(25)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(670), FieldFixedLength(25), FieldOrder(48), FieldTrim(TrimMode.Right)]
         public string FaxNumberTemp { get; set; }
 
         /// <summary>Corporate Officer</summary>
-        [FieldOrder(49)]
-        [StartPosition(695)]
-        [FieldFixedLength(1)]
+        [StartPosition(695), FieldFixedLength(1), FieldOrder(49)]
         public string CorporateOfficer { get; set; }
 
         /// <summary>WC State</summary>
-        [FieldOrder(50)]
-        [StartPosition(696)]
-        [FieldFixedLength(3)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(696), FieldFixedLength(3), FieldOrder(50), FieldTrim(TrimMode.Right)]
         public string WCState { get; set; }
 
         /// <summary>WC Classification Code</summary>
-        [FieldOrder(51)]
-        [StartPosition(699)]
-        [FieldFixedLength(4)]
-        [FieldTrim(TrimMode.Right)]
+        [StartPosition(699), FieldFixedLength(4), FieldOrder(51), FieldTrim(TrimMode.Right)]
         public string WCClassificationCode { get; set; }
 
         /// <summary>Assignment Pay</summary>
         /// <remarks>'X' = Assign Pay, ' '=Not Assign Pay</remarks>
-        [FieldOrder(52)]
-        [StartPosition(703)]
-        [FieldFixedLength(1)]
-        [FieldConverter(typeof(BoolConverter), "X", " ")]
+        [StartPosition(703), FieldFixedLength(1), FieldOrder(52), FieldConverter(typeof(BoolConverter), "X", " ")]
         public bool? AssignmentPay { get; set; }
 
         /// <summary>Dual Language</summary>
         /// <remarks>'X' = Dual Language, ' '=Not Dual Language</remarks>
-        [FieldOrder(53)]
-        [StartPosition(704)]
-        [FieldFixedLength(1)]
-        [FieldConverter(typeof(BoolConverter), "X", " ")]
+        [StartPosition(704), FieldFixedLength(1), FieldOrder(53), FieldConverter(typeof(BoolConverter), "X", " ")]
         public bool? DualLanguage { get; set; }
 
         /// <summary>Budgeted</summary>
         /// <remarks>'X' = Budgeted, ' '=Not Budgeted</remarks>
-        [FieldOrder(54)]
-        [StartPosition(705)]
-        [FieldFixedLength(1)]
-        [FieldConverter(typeof(BoolConverter), "X", " ")]
+        [StartPosition(705), FieldFixedLength(1), FieldOrder(54), FieldConverter(typeof(BoolConverter), "X", " ")]
         public bool? Budgeted { get; set; }
 
         /// <summary>Retirement Eligible</summary>
         /// <remarks>'X' = Retirement Eligible, ' '=Not Eligible</remarks>
-        [FieldOrder(55)]
-        [StartPosition(706)]
-        [FieldFixedLength(1)]
-        [FieldConverter(typeof(BoolConverter), "X", " ")]
+        [StartPosition(706), FieldFixedLength(1), FieldOrder(55), FieldConverter(typeof(BoolConverter), "X", " ")]
         public bool? RetirementEligible { get; set; }
 
         /// <summary>Supervisors Position Id</summary>
-        [FieldOrder(56)]
-        [StartPosition(707)]
-        [FieldFixedLength(8)]
+        [StartPosition(707), FieldFixedLength(8), FieldOrder(56)]
         public string SupervisorsPositionId { get; set; }
 
         public int GetRecordLength() => Total_Length;
@@ -362,7 +232,7 @@ namespace Hrms.Public.Files
         {
             return !string.IsNullOrEmpty(record) && record.Length == Total_Length && record.Substring(64, 4) == RecordTypeDefault;
         }
-            
+
     }
 
 }

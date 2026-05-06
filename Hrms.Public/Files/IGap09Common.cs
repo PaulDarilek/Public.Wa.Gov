@@ -8,47 +8,54 @@ namespace Hrms.Public.Files
     public interface IGap09Common : IFixedLengthFile
     {
         /// <summary>Personnel Area (Agency/Sub equivalent)</summary>
-        [StartPosition(1, "Personnel Area (Agency/Sub equivalent)")]
+	[StartPosition(1)]
         string PersonnelArea { get; set; }
 
         /// <summary>Personnel Sub Area (Bargaining Unit equivalent)</summary>
-        [StartPosition(5, "Personnel Sub Area (Bargaining Unit equivalent)")]
+	[StartPosition(5)]
         string PersonnelSubArea { get; set; }
 
         /// <summary>Employee Group (Permanent, Temporary, etc)</summary>
-        [StartPosition(9, "Employee Group (Permanent, Temporary, etc)")]
+	[StartPosition(9)]
         string EmployeeGroup { get; set; }
 
         /// <summary>Employee Sub Group (Monthly, Hourly, etc.)</summary>
-        [StartPosition(10, "Employee Sub Group (Monthly, Hourly, etc.)")]
+	[StartPosition(10)]
         string EmployeeSubGroup { get; set; }
 
         /// <summary>Personnel Number / Employee Number</summary>
-        [StartPosition(12, "PA0001 PERNR Personnel Number")]
+        /// <remarks>PA0001 PERNR Personnel Number</remarks>
+	[StartPosition(12)]
         string PersonnelNumber { get; set; }
 
         /// <summary>Social Security Number</summary>
-        [StartPosition(20, "PA0002 PERID Social Security Number")]
+        /// <remarks>PA0002 PERID Social Security Number</remarks>
+	[StartPosition(20)]
         string SSN { get; set; }
 
         /// <summary>Date of last change</summary>
-        [StartPosition(29, "YYYYMMDD PA0000 AEDTM Date of Last Change")]
+        /// <remarks>YYYYMMDD PA0000 AEDTM Date of Last Change</remarks>
+	[StartPosition(29)]
         DateTime DateChanged { get; set; }
 
         /// <summary>Name of person who changed object</summary>
-        [StartPosition(37, "PA0000 UNAME Name of person who changed object")]
+        /// <remarks>PA0000 UNAME Name of person who changed object</remarks>
+	[StartPosition(37)]
         string PersonChanged { get; set; }
 
         /// <summary>Record Type</summary>
-        [StartPosition(49, "Record Type identifies the Gap09 subtype")]
+        /// <remarks>Record Type identifies the Gap09 subtype</remarks>
+	[StartPosition(49)]
         string RecordType { get; set; }
 
         /// <summary>CCYYMMDD Start Date</summary>
-        [StartPosition(53, "CCYYMMDD DATS(8) PA0000 BEGDA Start date")]
+        /// <remarks>CCYYMMDD DATS(8) PA0000 BEGDA Start date</remarks>
+	[StartPosition(53)]
         DateTime DateEffective { get; set; }
 
         /// <summary>End Date</summary>
-        [StartPosition(61, "CCYYMMDD PA0000 ENDDA End Date")]
+        /// <remarks>CCYYMMDD PA0000 ENDDA End Date</remarks>
+	[StartPosition(61)]
         DateTime EndDate { get; set; }
 
         // IEnumerable<string> GetValidationErrors();

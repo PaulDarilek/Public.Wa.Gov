@@ -9,7 +9,7 @@ namespace Hrms.Public.Files
 {
 
     [DebuggerStepThrough]
-    public abstract class HeaderDetailBase<THeader, TDetail> : IReadWriteFile 
+    public abstract class HeaderDetailBase<THeader, TDetail> : IReadWriteFile
         where THeader : class, IFixedLengthFile
         where TDetail : class, IFixedLengthFile
     {

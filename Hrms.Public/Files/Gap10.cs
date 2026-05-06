@@ -98,7 +98,7 @@ namespace Hrms.Public.Files
 
         private MultiRecordEngine CreateEngine()
         {
-            var engine = new MultiRecordEngine(typeof(Gap10Position),typeof(Gap10CostDistributions))
+            var engine = new MultiRecordEngine(typeof(Gap10Position), typeof(Gap10CostDistributions))
             {
                 RecordSelector = RecordSelector
             };

@@ -13,7 +13,7 @@ namespace Hrms.Public.Files
     public class Gap11 : IReadWriteFile
     {
         /// <summary>Data</summary>
-        public List<Gap11PayrollDetails> Rows { get; set; } 
+        public List<Gap11PayrollDetails> Rows { get; set; }
         public int RecordCount => Rows.Count;
 
         /// <summary>Constructor</summary>
@@ -36,6 +36,5 @@ namespace Hrms.Public.Files
         public int WriteFile(FileInfo fileInfo) => fileInfo.WriteData(Rows);
 
     }
-
 
 }

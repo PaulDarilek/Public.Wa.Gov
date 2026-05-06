@@ -3,7 +3,6 @@ using Hrms.Public.Converters;
 using Hrms.Public.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Hrms.Public.Files
 {
@@ -12,71 +11,63 @@ namespace Hrms.Public.Files
     [FixedLengthRecord(FixedMode.ExactLength)]
     public class Gap01Header : IFixedLengthFile
     {
-        //Field Name Desc Length Start Position Notes
+        public const int Total_Length = 71;
+        public const string Interface_Identifier_Constant = "IIFTM001";
+        public const string RecordTypeDefault = "00";
 
         /// <summary>(Header) CHAR(2) 2 1 Constant "00"</summary>
-        [FieldFixedLength(2)]
-        [StartPosition(1, "Constant '00'")]
+        /// <remarks>Constant '00'</remarks>
+        [StartPosition(1), FieldFixedLength(2)]
         public string RecordType { get; set; }
 
         /// <summary>CHAR(8) 8 3 Constant "IIFTM001"</summary>
-        [FieldFixedLength(8)][MaxLength(8)]
-        [StartPosition(3, "Constant 'IIFTM001'")]
+        /// <remarks>Constant 'IIFTM001</remarks>
+        [StartPosition(3), FieldFixedLength(8)]
         public string InterfaceIdentifier { get; set; }
 
         /// <summary>DATS(8) 8 11 YYYYMMDD</summary>
-        [FieldFixedLength(8)][StartPosition(11, "DATS(8) 8 11 YYYYMMDD")]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        public DateTime DateCreated { get; set; } 
+        [StartPosition(11), FieldFixedLength(8), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
+        public DateTime DateCreated { get; set; }
 
         /// <summary>NUMC(6) 6 19 HHMMSS</summary>
-        [FieldFixedLength(6)]
-        [StartPosition(19, "NUMC(6) HHMMSS")]
+        /// <remarks>NUMC(6) HHMMSS</remarks>
+        [StartPosition(19), FieldFixedLength(6)]
         public string TimeCreated { get; set; }
 
         /// <summary>CHAR(1) 1 25 Constant "D" or "S"</summary>
-        [FieldFixedLength(1)]
-        [StartPosition(25, "CHAR(1) Constant 'D' or 'S'")]
+        /// <remarks>CHAR(1) Constant 'D' or 'S</remarks>
+        [StartPosition(25), FieldFixedLength(1)]
         public string DetailTypeInd { get; set; }
 
         /// <summary></summary>
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(26, "DATS(8) YYYYMMDD Begin Date of Period")]
+        /// <remarks>DATS(8) YYYYMMDD Begin Date of Period</remarks>
+        [StartPosition(26), FieldFixedLength(8), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime BeginDate { get; set; }
 
         /// <summary>DATS(8) 8 34 YYYYMMDD n/a n/a End Date of Period</summary>
-        [FieldFixedLength(8)]
-        [FieldConverter(ConverterKind.Date, "yyyyMMdd")]
-        [StartPosition(34, "DATS(8) YYYYMMDD End Date of Period")]
+        /// <remarks>DATS(8) YYYYMMDD End Date of Period</remarks>
+        [StartPosition(34), FieldFixedLength(8), FieldConverter(ConverterKind.Date, "yyyyMMdd")]
         public DateTime EndDate { get; set; }
 
         /// <summary>NUMC(6) 6 42 Total Number of Detail records in file, leading zeros</summary>
-        [FieldFixedLength(6)]
-        [FieldConverter(typeof(IntConverter), 6, false)]
-        [StartPosition(42, "NUMC(6) Total Number of Detail records in file, leading zeros")]
+        /// <remarks>NUMC(6) Total Number of Detail records in file, leading zeros</remarks>
+        [StartPosition(42), FieldFixedLength(6), FieldConverter(typeof(IntConverter), 6, false)]
         public int TotalDetailRecordCount { get; set; }
 
         /// <summary>DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.</summary>
-        [FieldFixedLength(8)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 6, 2)]
-        [StartPosition(48, "DEC(6,2) 8 48 6 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left. NO NEGATIVE NUMBERS ALLOWED.")]
+        [StartPosition(48), FieldFixedLength(8), FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 6, 2)]
         public decimal TotalDetailNumberOfHours { get; set; }
 
         /// <summary>DEC(7,2) 9(7)V99 (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
-        [FieldFixedLength(9)]
-        [FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 7, 2)]
-        [StartPosition(56, "DEC(7,2) 7 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
+        /// <remarks>DEC(7,2) 7 whole numbers plus 2 decimal positions (implied decimal point), zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</remarks>
+        [StartPosition(56), FieldFixedLength(9), FieldConverter(typeof(ImpliedDecimalConverter), Sign.None, 7, 2)]
         public decimal TotalDetailDollarAmount { get; set; }
 
         /// <summary>DEC(6) 6 65 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</summary>
-        [FieldFixedLength(6)]
-        [FieldConverter(typeof(IntConverter), 6, false)]
-        [StartPosition(65, "DEC(6) 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.")]
+        /// <remarks>DEC(6) 6 whole numbers, NO decimal positions, zero filled from the left, NO NEGATIVE NUMBERS ALLOWED.</remarks>
+        [StartPosition(65), FieldFixedLength(6), FieldConverter(typeof(IntConverter), 6, false)]
         public int TotalDetailMileageAmount { get; set; }
 
-        public const int Total_Length = 71;
-        public const string Interface_Identifier_Constant = "IIFTM001";
 
         /// <summary>Default Constructor</summary>
         public Gap01Header()
@@ -98,7 +89,7 @@ namespace Hrms.Public.Files
 
                 if (BeginDate == default || detail.StartDate < BeginDate)
                     BeginDate = detail.StartDate;
-                
+
                 if (EndDate == default || detail.EndDate > EndDate)
                     EndDate = detail.EndDate;
 
@@ -118,7 +109,7 @@ namespace Hrms.Public.Files
             var recordType = record.Substring(0, 2);
             var interfaceIdentifier = record.Substring(2, 8);
 
-            return recordType == "00" && interfaceIdentifier == Interface_Identifier_Constant;
+            return recordType == RecordTypeDefault && interfaceIdentifier == Interface_Identifier_Constant;
         }
     }
 

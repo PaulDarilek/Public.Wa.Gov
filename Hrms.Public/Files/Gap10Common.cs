@@ -7,33 +7,23 @@ namespace Hrms.Public.Files
     public class Gap10Common
     {
         /// <summary>Agency/Sub Agency</summary>
-        [FieldOrder(1)]
-        [StartPosition(1)]
-        [FieldFixedLength(4)]
+        [StartPosition(1), FieldFixedLength(4), FieldOrder(1)]
         public string Agency { get; set; }
 
         /// <summary>Position Id</summary>
-        [FieldOrder(2)]
-        [StartPosition(5)]
-        [FieldFixedLength(8)]
+        [StartPosition(5), FieldFixedLength(8), FieldOrder(2)]
         public string PositionId { get; set; }
 
         /// <summary>Position Title (Legacy)</summary>
-        [FieldOrder(3)]
-        [StartPosition(13)]
-        [FieldFixedLength(12)]
+        [StartPosition(13), FieldFixedLength(12), FieldOrder(3)]
         public string PositionLegacyTitle { get; set; }
 
         /// <summary>Position Title</summary>
-        [FieldOrder(4)]
-        [StartPosition(25)]
-        [FieldFixedLength(40)]
+        [StartPosition(25), FieldFixedLength(40), FieldOrder(4)]
         public string PositionTitle { get; set; }
 
         /// <summary>Record Type</summary>
-        [FieldOrder(5)]
-        [StartPosition(65)]
-        [FieldFixedLength(4)]
+        [StartPosition(65), FieldFixedLength(4), FieldOrder(5)]
         public string RecordType { get; set; }
 
     }
