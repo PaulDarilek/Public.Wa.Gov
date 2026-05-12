@@ -17,8 +17,6 @@ namespace Hrms.Public.Files
         public const int Total_Length = 31;
         public const string Interface_Identifier_Constant = "IIFPY038";
 
-        //Field Name Desc Length Start Position Notes
-
         /// <summary>(Header) CHAR(2) 2 1 </summary>
         /// <remarks>Constant "00"</remarks>
         [StartPosition(1), FieldFixedLength(2)]

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 
-namespace Hrms.Public.Converters
+namespace Hrms.Public
 {
 
     /// <summary>Handle Importing FlatFiles</summary>

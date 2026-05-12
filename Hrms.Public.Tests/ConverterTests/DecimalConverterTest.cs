@@ -1,7 +1,7 @@
 using Hrms.Public.Converters;
 
 
-namespace Hrms.Public.Tests
+namespace Hrms.Public.Tests.ConverterTests
 {
     public class DecimalConverterTest
     {
@@ -9,7 +9,7 @@ namespace Hrms.Public.Tests
         public void ImpliedDecimalConverter_Unsigned_Should_Convert_Correctly()
         {
             // Arrange
-            var converter = new Hrms.Public.Converters.ImpliedDecimalConverter(Sign.None, 3, 2); // 2 decimal places
+            var converter = new ImpliedDecimalConverter(Sign.None, 3, 2); // 2 decimal places
 
             // Act & Assert
             TestConverter(converter, "12345", 123.45m);
@@ -26,7 +26,7 @@ namespace Hrms.Public.Tests
         public void ImpliedDecimalConverter_SignLeading_Should_Convert_Correctly()
         {
             // Arrange
-            var converter = new Hrms.Public.Converters.ImpliedDecimalConverter(Sign.LeadingSeparate, 3, 2); // 2 decimal places
+            var converter = new ImpliedDecimalConverter(Sign.LeadingSeparate, 3, 2); // 2 decimal places
 
             // Act & Assert
             TestConverter(converter, " 12345", 123.45m);
@@ -48,7 +48,7 @@ namespace Hrms.Public.Tests
         public void ImpliedDecimalConverter_SignTrailing_Should_Convert_Correctly()
         {
             // Arrange
-            var converter = new Hrms.Public.Converters.ImpliedDecimalConverter(Sign.TrailingSeparate, 3, 2); // 2 decimal places
+            var converter = new ImpliedDecimalConverter(Sign.TrailingSeparate, 3, 2); // 2 decimal places
 
             // Act & Assert
             TestConverter(converter, "12345 ", 123.45m);
